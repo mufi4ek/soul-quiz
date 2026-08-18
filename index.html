@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЯКА ТИ ДУША?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a10;
+    --panel:#13131c;
+    --ink:#f2f2f2;
+    --dim:#7a7a8c;
+    --gold:#ffd94a;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;padding:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Press Start 2P', monospace;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  body{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:24px 14px 60px;
+    position:relative;
+  }
+
+  /* static starfield — one background-image, no JS, no repaint cost */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      radial-gradient(2px 2px at 40px 60px, #ffffff33 50%, transparent 51%),
+      radial-gradient(2px 2px at 180px 240px, #ffffff22 50%, transparent 51%),
+      radial-gradient(1px 1px at 300px 120px, #ffffff33 50%, transparent 51%),
+      radial-gradient(2px 2px at 400px 400px, #ffffff22 50%, transparent 51%),
+      radial-gradient(1px 1px at 520px 80px, #ffffff2b 50%, transparent 51%),
+      radial-gradient(2px 2px at 640px 300px, #ffffff22 50%, transparent 51%);
+    background-repeat:repeat;
+    background-size:680px 480px;
+    pointer-events:none;
+    z-index:0;
+    opacity:.7;
+  }
+  /* soft static vignette, single layer, cheap */
+  body::after{
+    content:"";
+    position:fixed; inset:0;
+    background:radial-gradient(circle at 50% 20%, rgba(120,90,255,0.10), transparent 55%),
+               radial-gradient(circle at 50% 100%, rgba(0,0,0,0.55), transparent 60%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* a handful of floating pixels — transform-only animation, GPU cheap */
+  .float-px{
+    position:fixed;
+    width:6px;height:6px;
+    background:var(--gold);
+    opacity:.35;
+    z-index:0;
+    animation:floaty 6s ease-in-out infinite;
+    will-change:transform;
+  }
+  .float-px:nth-child(1){left:8%;top:20%;animation-duration:7s;}
+  .float-px:nth-child(2){left:85%;top:15%;background:#7dd3fc;animation-duration:8.5s;animation-delay:-2s;}
+  .float-px:nth-child(3){left:15%;top:75%;background:#ff7d7d;animation-duration:6.5s;animation-delay:-4s;}
+  .float-px:nth-child(4){left:90%;top:70%;background:#9dff7d;animation-duration:9s;animation-delay:-1s;}
+  .float-px:nth-child(5){left:50%;top:8%;background:#c17dff;animation-duration:7.5s;animation-delay:-3s;}
+  @keyframes floaty{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-16px);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .float-px{animation:none;}
+  }
+
+  .wrap{
+    position:relative;
+    z-index:1;
+    width:100%;
+    max-width:520px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:20px;
+  }
+  h1{
+    font-size:16px;
+    line-height:1.8;
+    text-align:center;
+    letter-spacing:1px;
+    text-shadow:3px 3px 0 #000, 0 0 18px rgba(255,217,74,.25);
+    margin:10px 0 0;
+    color:#fff;
+  }
+  .subtitle{
+    font-size:8px;
+    color:var(--dim);
+    text-align:center;
+    line-height:1.9;
+  }
+
+  .pixel-panel{
+    background:linear-gradient(180deg,#161622,#101018);
+    border:4px solid #fff;
+    box-shadow:0 0 0 4px #000, 6px 6px 0 0 #000, 0 20px 40px -20px rgba(0,0,0,.8);
+    clip-path: polygon(
+      0 10px, 10px 10px, 10px 0,
+      calc(100% - 10px) 0, calc(100% - 10px) 10px, 100% 10px,
+      100% calc(100% - 10px), calc(100% - 10px) calc(100% - 10px), calc(100% - 10px) 100%,
+      10px 100%, 10px calc(100% - 10px), 0 calc(100% - 10px)
+    );
+    padding:22px 18px;
+    width:100%;
+    opacity:0;
+    transform:translateY(10px);
+  }
+  .pixel-panel.in{
+    transition:opacity .35s ease, transform .35s ease;
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  .group-title{
+    font-size:9px;
+    color:var(--dim);
+    margin-bottom:12px;
+    letter-spacing:1px;
+  }
+
+  .option-row{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .option-row:last-of-type{margin-bottom:0;}
+
+  .pixel-btn{
+    font-family:'Press Start 2P', monospace;
+    background:#1c1c28;
+    color:var(--ink);
+    border:3px solid #fff;
+    box-shadow:4px 4px 0 0 #000;
+    padding:12px 10px;
+    font-size:9px;
+    line-height:1.6;
+    text-align:left;
+    cursor:pointer;
+    width:100%;
+    transition:transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
+  }
+  .pixel-btn:hover{
+    background:#26263a;
+    transform:translate(-2px,-2px);
+    box-shadow:6px 6px 0 0 #000;
+  }
+  .pixel-btn:active{
+    transform:translate(3px,3px);
+    box-shadow:1px 1px 0 0 #000;
+  }
+  .pixel-btn.selected{
+    background:#39395a;
+    border-color:var(--gold);
+    box-shadow:4px 4px 0 0 var(--gold);
+  }
+  .pixel-btn small{
+    display:block;
+    color:var(--dim);
+    font-size:7px;
+    margin-top:6px;
+    line-height:1.6;
+  }
+
+  .start-btn{
+    margin-top:6px;
+    background:#26264a;
+    border-color:var(--gold);
+    color:var(--gold);
+    text-align:center;
+    font-size:11px;
+    padding:16px 10px;
+  }
+  .start-btn:hover:not(:disabled){background:#33335f;}
+  .start-btn:disabled{
+    opacity:.35;
+    cursor:not-allowed;
+    transform:none !important;
+  }
+
+  .progress-wrap{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:8px;
+    color:var(--dim);
+  }
+  .progress-bar{
+    flex:1;
+    height:14px;
+    background:#000;
+    border:3px solid #fff;
+    position:relative;
+    overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    background:repeating-linear-gradient(90deg,var(--gold) 0 6px,#e0b820 6px 12px);
+    transition:width .3s ease;
+  }
+
+  .question-text{
+    font-size:11px;
+    line-height:2;
+    margin-bottom:20px;
+    min-height:66px;
+    opacity:0;
+    transform:translateY(6px);
+  }
+  .question-text.in{
+    transition:opacity .25s ease, transform .25s ease;
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  .answers{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .heart-grid{
+    display:grid;
+    grid-template-columns:repeat(7, var(--px, 16px));
+    grid-template-rows:repeat(6, var(--px, 16px));
+    gap:0;
+    margin:10px auto 6px;
+    animation:heartbeat 1.4s ease-in-out infinite;
+    will-change:transform;
+  }
+  @keyframes heartbeat{
+    0%,100%{transform:scale(1);}
+    30%{transform:scale(1.12);}
+    45%{transform:scale(0.98);}
+    60%{transform:scale(1.08);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .heart-grid{animation:none;}
+  }
+  .heart-cell{width:var(--px,16px);height:var(--px,16px);}
+  .heart-glow{
+    filter: drop-shadow(0 0 8px var(--glow, #fff));
+  }
+
+  .result-name{
+    font-size:16px;
+    text-align:center;
+    margin:10px 0 4px;
+    letter-spacing:1px;
+    text-shadow:2px 2px 0 #000;
+  }
+  .result-caption{
+    font-size:8px;
+    color:var(--dim);
+    text-align:center;
+    line-height:2;
+    margin-bottom:18px;
+  }
+
+  footer{
+    margin-top:30px;
+    font-size:7px;
+    color:#4a4a5c;
+    text-align:center;
+    line-height:2;
+    z-index:1;
+    position:relative;
+  }
+
+  .hidden{display:none !important;}
+
+  @media (max-width:380px){
+    h1{font-size:12px;}
+    .question-text{font-size:10px;}
+    .heart-grid{--px:12px;}
+  }
+</style>
+</head>
+<body>
+<div class="float-px"></div>
+<div class="float-px"></div>
+<div class="float-px"></div>
+<div class="float-px"></div>
+<div class="float-px"></div>
+
+<div class="wrap">
+  <h1>ЯКА ТИ ДУША?</h1>
+  <div class="subtitle">тест у стилі undertale</div>
+
+  <div class="pixel-panel" id="screenSetup">
+    <div class="group-title">КРОК 1 — ОБЕРИ НАБІР ДУШ</div>
+    <div class="option-row" id="setChoices"></div>
+
+    <div class="group-title">КРОК 2 — ОБЕРИ ТОЧНІСТЬ</div>
+    <div class="option-row" id="accChoices"></div>
+
+    <button class="pixel-btn start-btn" id="startBtn" disabled>▶ ПОЧАТИ ТЕСТ</button>
+  </div>
+
+  <div class="pixel-panel hidden" id="screenQuiz">
+    <div class="progress-wrap">
+      <span id="progressLabel">1 / 10</span>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
+    <div class="question-text" id="questionText" style="margin-top:18px;"></div>
+    <div class="answers" id="answersWrap"></div>
+  </div>
+
+  <div class="pixel-panel hidden" id="screenResult" style="text-align:center;">
+    <div class="group-title">РЕЗУЛЬТАТ</div>
+    <div id="resultHeart"></div>
+    <div class="result-name" id="resultName"></div>
+    <div class="result-caption" id="resultCaption"></div>
+    <button class="pixel-btn start-btn" id="restartBtn">↺ ПРОЙТИ ЩЕ РАЗ</button>
+  </div>
+
+  <footer>* натхненно кольорами душ із Undertale<br>та користувацькою таблицею рис характеру</footer>
+</div>
+
+<script>
+/* ---------- DATA ---------- */
+const CLASSIC7 = [
+  {name:"Рішучість",    hue:0},
+  {name:"Хоробрість",   hue:30},
+  {name:"Справедливість",hue:52},
+  {name:"Доброта",      hue:120},
+  {name:"Терпіння",     hue:185},
+  {name:"Чесність",     hue:230},
+  {name:"Наполегливість",hue:280},
+];
+
+const EXTENDED19_RAW = [
+  "Стійкість","Самовідданість","Хоробрість","Сміливість","Справедливість",
+  "Безкорисливість","Доброта","Співчуття","Терпіння","Спокій",
+  "Порядність","Мораль","Наполегливість","Мотивація","Самостійність",
+  "Старанність","Впевненість","Рішучість"
+];
+const EXTENDED19 = EXTENDED19_RAW.map((name,i)=>({
+  name, hue: Math.round(i*(300/(EXTENDED19_RAW.length-1)))
+}));
+EXTENDED19.push({name:"Любов", hue:0, isWhite:true});
+
+function soulColor(s){
+  return s.isWhite ? "#ffffff" : `hsl(${s.hue}, 72%, 58%)`;
+}
+
+const TEMPLATES = [
+  "«{t}» — це моя головна риса характеру.",
+  "У важкі моменти я перш за все покладаюся на {t}.",
+  "Друзі описують мене як людину, що втілює {t}.",
+  "Я готовий(-а) захищати {t} до кінця, навіть коли важко.",
+  "Найбільше я ціную в собі {t}.",
+  "Якби мене описали одним словом, це було б «{t}»."
+];
+
+const LIKERT = [
+  {label:"Зовсім не про мене", v:0},
+  {label:"Скоріше ні", v:1},
+  {label:"Важко сказати", v:2},
+  {label:"Скоріше так", v:3},
+  {label:"Це точно про мене", v:4},
+];
+
+const ACCURACY_TIERS = [
+  {key:"fast",   label:"ШВИДКИЙ",     hint:"менше запитань, менш точно", perSoul:1},
+  {key:"medium", label:"СЕРЕДНІЙ",    hint:"збалансований варіант",       perSoul:2},
+  {key:"max",    label:"МАКСИМАЛЬНИЙ",hint:"найбільше запитань, точніше",perSoul:3},
+];
+
+const SET_CHOICES = [
+  {key:"classic", label:"7 ДУШ (ОРИГІНАЛ)", hint:"класичні кольори з Undertale", data:CLASSIC7},
+  {key:"extended", label:"19 ДУШ (РОЗШИРЕНО)", hint:"за таблицею рис характеру", data:EXTENDED19},
+];
+
+const HEART_MAP = [
+  "0110110",
+  "1111111",
+  "1111111",
+  "0111110",
+  "0011100",
+  "0001000",
+];
+
+function renderHeart(container, color, px){
+  container.innerHTML = "";
+  const grid = document.createElement("div");
+  grid.className = "heart-grid heart-glow";
+  grid.style.setProperty("--px", (px||16)+"px");
+  grid.style.setProperty("--glow", color);
+  HEART_MAP.forEach(row=>{
+    [...row].forEach(bit=>{
+      const cell = document.createElement("div");
+      cell.className = "heart-cell";
+      cell.style.background = bit==="1" ? color : "transparent";
+      grid.appendChild(cell);
+    });
+  });
+  container.appendChild(grid);
+}
+
+/* ---------- SCREEN TRANSITIONS (cheap, one-shot, no rAF loop) ---------- */
+function showScreen(id){
+  const el = document.getElementById(id);
+  el.classList.remove("hidden");
+  el.classList.remove("in");
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>{
+      el.classList.add("in");
+    });
+  });
+}
+function hideScreen(id){
+  const el = document.getElementById(id);
+  el.classList.add("hidden");
+  el.classList.remove("in");
+}
+
+/* ---------- STATE ---------- */
+let state = { soulSet:null, accuracy:null, questions:[], scores:[], current:0 };
+
+const setChoicesEl = document.getElementById("setChoices");
+const accChoicesEl = document.getElementById("accChoices");
+const startBtn = document.getElementById("startBtn");
+
+SET_CHOICES.forEach(opt=>{
+  const btn = document.createElement("button");
+  btn.className = "pixel-btn";
+  btn.innerHTML = opt.label + "<small>"+opt.hint+"</small>";
+  btn.addEventListener("click", ()=>{
+    state.soulSet = opt;
+    [...setChoicesEl.children].forEach(c=>c.classList.remove("selected"));
+    btn.classList.add("selected");
+    checkReady();
+  });
+  setChoicesEl.appendChild(btn);
+});
+
+ACCURACY_TIERS.forEach(opt=>{
+  const btn = document.createElement("button");
+  btn.className = "pixel-btn";
+  btn.innerHTML = opt.label + "<small>"+opt.hint+"</small>";
+  btn.addEventListener("click", ()=>{
+    state.accuracy = opt;
+    [...accChoicesEl.children].forEach(c=>c.classList.remove("selected"));
+    btn.classList.add("selected");
+    checkReady();
+  });
+  accChoicesEl.appendChild(btn);
+});
+
+function checkReady(){
+  startBtn.disabled = !(state.soulSet && state.accuracy);
+}
+
+startBtn.addEventListener("click", startQuiz);
+document.getElementById("restartBtn").addEventListener("click", ()=>{
+  hideScreen("screenResult");
+  showScreen("screenSetup");
+});
+
+function shuffle(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function startQuiz(){
+  const souls = state.soulSet.data;
+  const perSoul = state.accuracy.perSoul;
+  let qs = [];
+  souls.forEach((soul, idx)=>{
+    for(let k=0;k<perSoul;k++){
+      const template = TEMPLATES[k % TEMPLATES.length];
+      qs.push({ text: template.replace("{t}", soul.name.toLowerCase()), soulIndex: idx });
+    }
+  });
+  qs = shuffle(qs);
+
+  state.questions = qs;
+  state.scores = souls.map(()=>0);
+  state.current = 0;
+
+  hideScreen("screenSetup");
+  showScreen("screenQuiz");
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const q = state.questions[state.current];
+  const qText = document.getElementById("questionText");
+  qText.classList.remove("in");
+  qText.textContent = q.text;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>qText.classList.add("in")));
+
+  document.getElementById("progressLabel").textContent =
+    (state.current+1) + " / " + state.questions.length;
+  document.getElementById("progressFill").style.width =
+    Math.round(((state.current)/state.questions.length)*100) + "%";
+
+  const wrap = document.getElementById("answersWrap");
+  wrap.innerHTML = "";
+  LIKERT.forEach(opt=>{
+    const btn = document.createElement("button");
+    btn.className = "pixel-btn";
+    btn.textContent = opt.label;
+    btn.addEventListener("click", ()=>answer(q.soulIndex, opt.v));
+    wrap.appendChild(btn);
+  });
+}
+
+function answer(soulIndex, value){
+  state.scores[soulIndex] += value;
+  state.current++;
+  if(state.current >= state.questions.length){
+    showResult();
+  } else {
+    renderQuestion();
+  }
+}
+
+function showResult(){
+  hideScreen("screenQuiz");
+  const souls = state.soulSet.data;
+  const max = Math.max(...state.scores);
+  const winners = souls.filter((_,i)=>state.scores[i]===max);
+  const winner = winners[Math.floor(Math.random()*winners.length)];
+  const color = soulColor(winner);
+
+  renderHeart(document.getElementById("resultHeart"), color, 18);
+  document.getElementById("resultName").textContent = winner.name.toUpperCase();
+  document.getElementById("resultName").style.color = color;
+  document.getElementById("resultCaption").textContent =
+    "Твоя душа набрала найвищий бал за відповідями у тесті (" +
+    state.soulSet.label.toLowerCase() + ").";
+  showScreen("screenResult");
+}
+
+/* initial panel fade-in */
+showScreen("screenSetup");
+</script>
+</body>
+</html>
