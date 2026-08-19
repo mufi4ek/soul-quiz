@@ -1,194 +1,142 @@
 <!DOCTYPE html>
+<!-- Author: mufi (mufi4ek) — github.com/mufi4ek -->
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="mufi (mufi4ek)">
-<!-- site by mufi (mufi4ek) -->
-<title>ЯКА ТИ ДУША?</title>
+<title>WHICH SOUL ARE YOU?</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0b0b14;
-    --panel-a:#1c1c2c;
-    --panel-b:#121220;
-    --ink:#e9e5f2;
-    --dim:#8d8da6;
-    --border-soft:#c3bcdd;
-    --gold:#f0c24b;
-    --mint:#7fe0c4;
+    --bg-a:#0b0a14;
+    --bg-b:#141026;
+    --panel-a:#1a1730;
+    --panel-b:#100e1c;
+    --ink:#e9e6f7;
+    --dim:#8a86ac;
+    --gold:#ffd94a;
+    --lilac:#b8a4ff;
+    --edge:#a99fe0;
   }
   *{box-sizing:border-box;}
-  html,body{
-    margin:0;padding:0;
-    background:var(--bg);
+  html,body{margin:0;padding:0;min-height:100vh;}
+  body{
+    background:
+      radial-gradient(circle at 20% -10%, rgba(184,164,255,.14), transparent 45%),
+      radial-gradient(circle at 85% 10%, rgba(255,217,74,.08), transparent 40%),
+      radial-gradient(circle at 50% 110%, rgba(0,0,0,.7), transparent 60%),
+      linear-gradient(160deg, var(--bg-a), var(--bg-b));
     color:var(--ink);
     font-family:'Press Start 2P', monospace;
-    min-height:100vh;
-    overflow-x:hidden;
-  }
-  body{
     display:flex;
     flex-direction:column;
     align-items:center;
-    padding:20px 14px 60px;
+    padding:26px 14px 60px;
     position:relative;
+    overflow-x:hidden;
   }
 
   body::before{
     content:"";
     position:fixed; inset:0;
     background-image:
-      radial-gradient(2px 2px at 40px 60px, #d9d3ff2b 50%, transparent 51%),
-      radial-gradient(2px 2px at 180px 240px, #d9d3ff1e 50%, transparent 51%),
-      radial-gradient(1px 1px at 300px 120px, #d9d3ff2b 50%, transparent 51%),
-      radial-gradient(2px 2px at 400px 400px, #d9d3ff1e 50%, transparent 51%),
-      radial-gradient(1px 1px at 520px 80px, #d9d3ff26 50%, transparent 51%),
-      radial-gradient(2px 2px at 640px 300px, #d9d3ff1e 50%, transparent 51%);
+      radial-gradient(2px 2px at 40px 60px, #ffffff33 50%, transparent 51%),
+      radial-gradient(2px 2px at 180px 240px, #ffffff22 50%, transparent 51%),
+      radial-gradient(1px 1px at 300px 120px, #ffffff33 50%, transparent 51%),
+      radial-gradient(2px 2px at 400px 400px, #ffffff22 50%, transparent 51%),
+      radial-gradient(1px 1px at 520px 80px, #ffffff2b 50%, transparent 51%),
+      radial-gradient(2px 2px at 640px 300px, #ffffff22 50%, transparent 51%);
     background-repeat:repeat;
     background-size:680px 480px;
     pointer-events:none;
     z-index:0;
-    opacity:.7;
-  }
-  body::after{
-    content:"";
-    position:fixed; inset:0;
-    background:radial-gradient(circle at 50% 15%, rgba(120,90,255,0.09), transparent 55%),
-               radial-gradient(circle at 50% 100%, rgba(0,0,0,0.55), transparent 60%);
-    pointer-events:none;
-    z-index:0;
+    opacity:.5;
   }
 
   .float-px{
-    position:fixed;
-    width:6px;height:6px;
-    opacity:.3;
-    z-index:0;
+    position:fixed; width:6px;height:6px;
+    opacity:.4; z-index:0;
     animation:floaty 7s ease-in-out infinite;
     will-change:transform;
   }
   .float-px:nth-child(1){left:8%;top:20%;background:var(--gold);animation-duration:7s;}
-  .float-px:nth-child(2){left:85%;top:15%;background:#8fd6f5;animation-duration:8.5s;animation-delay:-2s;}
-  .float-px:nth-child(3){left:15%;top:75%;background:#f58f8f;animation-duration:6.5s;animation-delay:-4s;}
-  .float-px:nth-child(4){left:90%;top:70%;background:var(--mint);animation-duration:9s;animation-delay:-1s;}
-  .float-px:nth-child(5){left:50%;top:8%;background:#c9a3ff;animation-duration:7.5s;animation-delay:-3s;}
+  .float-px:nth-child(2){left:85%;top:15%;background:#7dd3fc;animation-duration:8.5s;animation-delay:-2s;}
+  .float-px:nth-child(3){left:15%;top:75%;background:#ff7d7d;animation-duration:6.5s;animation-delay:-4s;}
+  .float-px:nth-child(4){left:90%;top:70%;background:#9dff7d;animation-duration:9s;animation-delay:-1s;}
+  .float-px:nth-child(5){left:50%;top:8%;background:var(--lilac);animation-duration:7.5s;animation-delay:-3s;}
   @keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-16px);}}
-  @media (prefers-reduced-motion: reduce){.float-px{animation:none;}}
+  @media (prefers-reduced-motion: reduce){.float-px{animation:none;} .heart-grid{animation:none !important;}}
 
-  .wrap{
-    position:relative;
-    z-index:1;
-    width:100%;
-    max-width:520px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:18px;
-  }
-
-  .lang-row{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:6px;
-  }
-  .lang-btn{
-    font-family:'Press Start 2P', monospace;
-    font-size:9px;
-    background:#181826;
-    color:var(--dim);
-    border:2px solid #33334a;
-    padding:6px 8px;
-    cursor:pointer;
-    transition:transform .1s ease, border-color .1s ease, color .1s ease;
-  }
-  .lang-btn:hover{transform:translateY(-2px);border-color:var(--border-soft);color:var(--ink);}
-  .lang-btn.active{
-    border-color:var(--gold);
-    color:var(--gold);
-    background:#242438;
-  }
+  .wrap{position:relative;z-index:1;width:100%;max-width:540px;display:flex;flex-direction:column;align-items:center;gap:16px;}
 
   h1{
-    font-size:16px;
+    font-size:17px;
     line-height:1.8;
     text-align:center;
     letter-spacing:1px;
-    text-shadow:3px 3px 0 #000, 0 0 14px rgba(240,194,75,.18);
-    margin:6px 0 0;
-    color:var(--ink);
+    margin:8px 0 0;
+    color:#fff;
+    text-shadow:
+      0 0 4px #fff,
+      0 0 14px rgba(255,255,255,.8),
+      0 0 30px rgba(184,164,255,.7),
+      3px 3px 0 #000;
   }
-  .subtitle{
-    font-size:8px;
+  .subtitle{font-size:8px;color:var(--dim);text-align:center;line-height:1.9;}
+
+  /* language switcher */
+  .lang-row{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:2px;}
+  .lang-btn{
+    font-family:'Press Start 2P', monospace;
+    font-size:7px;
+    padding:6px 7px;
+    background:#181626;
+    border:2px solid #4d4870;
     color:var(--dim);
-    text-align:center;
-    line-height:1.9;
+    cursor:pointer;
+    transition:border-color .12s ease, color .12s ease, transform .12s ease;
   }
+  .lang-btn:hover{transform:translateY(-1px); color:var(--ink); border-color:var(--edge);}
+  .lang-btn.active{border-color:var(--gold); color:var(--gold); background:#2a2440;}
 
-  /* frame wraps the panel and holds the generated pixel-dust border */
-  .pixel-frame{
-    position:relative;
-    width:100%;
-  }
-  .dust-layer{
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    z-index:2;
-  }
-  .dust{
-    position:absolute;
-  }
-
+  /* panel with pixel-dust frame instead of a plain line */
   .pixel-panel{
     position:relative;
-    z-index:1;
     background:linear-gradient(180deg,var(--panel-a),var(--panel-b));
-    border:3px solid var(--border-soft);
-    box-shadow:0 0 0 3px #000, 5px 5px 0 0 #000, 0 20px 40px -20px rgba(0,0,0,.85);
-    padding:22px 18px;
+    padding:24px 18px;
     width:100%;
+    clip-path: polygon(
+      0 12px, 12px 12px, 12px 0,
+      calc(100% - 12px) 0, calc(100% - 12px) 12px, 100% 12px,
+      100% calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) 100%,
+      12px 100%, 12px calc(100% - 12px), 0 calc(100% - 12px)
+    );
+    box-shadow:0 24px 50px -24px rgba(0,0,0,.85);
     opacity:0;
     transform:translateY(10px);
   }
-  .pixel-panel.in{
-    transition:opacity .35s ease, transform .35s ease;
-    opacity:1;
-    transform:translateY(0);
-  }
-
-  .group-title{
-    font-size:9px;
-    color:var(--dim);
-    margin-bottom:12px;
-    letter-spacing:1px;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .group-title::before{
+  .pixel-panel.in{transition:opacity .35s ease, transform .35s ease;opacity:1;transform:translateY(0);}
+  .pixel-panel::before{
     content:"";
-    width:6px;height:6px;
-    background:var(--gold);
-    display:inline-block;
-    flex:none;
+    position:absolute;
+    inset:-11px;
+    background-image:var(--dust-tile);
+    background-repeat:repeat;
+    background-size:24px 24px;
+    z-index:-1;
+    filter:drop-shadow(0 0 6px rgba(255,255,255,.25));
   }
 
-  .option-row{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-    margin-bottom:22px;
-  }
+  .group-title{font-size:9px;color:var(--dim);margin-bottom:12px;letter-spacing:1px;}
+  .option-row{display:flex;flex-direction:column;gap:8px;margin-bottom:22px;}
   .option-row:last-of-type{margin-bottom:0;}
 
   .pixel-btn{
     font-family:'Press Start 2P', monospace;
-    background:#1c1c28;
+    background:#1c1a2c;
     color:var(--ink);
-    border:2px solid var(--border-soft);
+    border:2px solid var(--edge);
     box-shadow:4px 4px 0 0 #000;
     padding:12px 10px;
     font-size:9px;
@@ -198,355 +146,292 @@
     width:100%;
     transition:transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
   }
-  .pixel-btn:hover{
-    background:#26263a;
-    transform:translate(-2px,-2px);
-    box-shadow:6px 6px 0 0 #000;
-  }
-  .pixel-btn:active{
-    transform:translate(3px,3px);
-    box-shadow:1px 1px 0 0 #000;
-  }
-  .pixel-btn.selected{
-    background:#39395a;
-    border-color:var(--gold);
-    box-shadow:4px 4px 0 0 var(--gold);
-  }
-  .pixel-btn small{
-    display:block;
-    color:var(--dim);
-    font-size:7px;
-    margin-top:6px;
-    line-height:1.6;
-  }
+  .pixel-btn:hover{background:#2a2745;transform:translate(-2px,-2px);box-shadow:6px 6px 0 0 #000;}
+  .pixel-btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 0 #000;}
+  .pixel-btn.selected{background:#3a3566;border-color:var(--gold);box-shadow:4px 4px 0 0 var(--gold);}
+  .pixel-btn small{display:block;color:var(--dim);font-size:7px;margin-top:6px;line-height:1.6;}
 
   .start-btn{
-    margin-top:6px;
-    background:#26264a;
+    position:relative;
+    margin-top:8px;
+    background:#241f42;
     border-color:var(--gold);
     color:var(--gold);
     text-align:center;
     font-size:11px;
     padding:16px 10px;
   }
-  .start-btn:hover:not(:disabled){background:#33335f;}
+  .start-btn::before{
+    content:"";
+    position:absolute; inset:-9px;
+    background-image:var(--dust-tile);
+    background-repeat:repeat;
+    background-size:24px 24px;
+    z-index:-1;
+    opacity:.9;
+  }
+  .start-btn:hover:not(:disabled){background:#302a58;}
   .start-btn:disabled{opacity:.35;cursor:not-allowed;transform:none !important;}
 
-  .progress-wrap{
-    width:100%;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:8px;
-    color:var(--dim);
-  }
-  .progress-bar{
-    flex:1;
-    height:14px;
-    background:#000;
-    border:2px solid var(--border-soft);
-    position:relative;
-    overflow:hidden;
-  }
-  .progress-fill{
-    height:100%;
-    background:repeating-linear-gradient(90deg,var(--gold) 0 6px,#cf9f2e 6px 12px);
-    transition:width .3s ease;
-  }
+  .progress-wrap{width:100%;display:flex;align-items:center;gap:10px;font-size:8px;color:var(--dim);}
+  .progress-bar{flex:1;height:14px;background:#000;border:2px solid var(--edge);position:relative;overflow:hidden;}
+  .progress-fill{height:100%;background:repeating-linear-gradient(90deg,var(--gold) 0 6px,#e0b820 6px 12px);transition:width .3s ease;}
 
-  .question-text{
-    font-size:11px;
-    line-height:2;
-    margin-bottom:20px;
-    min-height:66px;
-    opacity:0;
-    transform:translateY(6px);
-  }
-  .question-text.in{
-    transition:opacity .25s ease, transform .25s ease;
-    opacity:1;
-    transform:translateY(0);
-  }
+  .question-text{font-size:11px;line-height:2;margin-bottom:20px;min-height:66px;opacity:0;transform:translateY(6px);}
+  .question-text.in{transition:opacity .25s ease, transform .25s ease;opacity:1;transform:translateY(0);}
 
   .answers{display:flex;flex-direction:column;gap:8px;}
 
   .heart-grid{
     display:grid;
+    width:max-content;
     grid-template-columns:repeat(7, var(--px, 16px));
     grid-template-rows:repeat(6, var(--px, 16px));
     gap:0;
-    margin:10px auto 6px;
+    margin:12px auto 8px;
     animation:heartbeat 1.4s ease-in-out infinite;
     will-change:transform;
   }
   @keyframes heartbeat{0%,100%{transform:scale(1);}30%{transform:scale(1.12);}45%{transform:scale(0.98);}60%{transform:scale(1.08);}}
-  @media (prefers-reduced-motion: reduce){.heart-grid{animation:none;}}
   .heart-cell{width:var(--px,16px);height:var(--px,16px);}
-  .heart-glow{filter: drop-shadow(0 0 8px var(--glow, #fff));}
+  .heart-glow{filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 14px var(--glow, #fff));}
 
-  .result-name{
-    font-size:16px;
-    text-align:center;
-    margin:10px 0 4px;
-    letter-spacing:1px;
-    text-shadow:2px 2px 0 #000;
-  }
-  .result-caption{
-    font-size:8px;
-    color:var(--dim);
-    text-align:center;
-    line-height:2;
-    margin-bottom:18px;
-  }
+  .result-name{font-size:17px;text-align:center;margin:10px 0 4px;letter-spacing:1px;text-shadow:2px 2px 0 #000, 0 0 18px currentColor;}
+  .result-caption{font-size:8px;color:var(--dim);text-align:center;line-height:2;margin-bottom:18px;}
 
-  footer{
-    margin-top:26px;
-    font-size:7px;
-    color:#4a4a5c;
-    text-align:center;
-    line-height:2;
-    z-index:1;
-    position:relative;
-  }
+  footer{margin-top:26px;font-size:7px;color:#57527a;text-align:center;line-height:2;z-index:1;position:relative;}
 
   .watermark{
     position:fixed;
-    bottom:6px;
     right:8px;
-    font-size:7px;
-    color:var(--dim);
-    opacity:.18;
-    pointer-events:none;
-    z-index:3;
+    bottom:6px;
+    font-family:'Press Start 2P', monospace;
+    font-size:6px;
+    color:rgba(255,255,255,.14);
     letter-spacing:1px;
+    pointer-events:none;
+    z-index:5;
     user-select:none;
   }
 
   .hidden{display:none !important;}
 
   @media (max-width:380px){
-    h1{font-size:12px;}
+    h1{font-size:13px;}
     .question-text{font-size:10px;}
     .heart-grid{--px:12px;}
   }
 </style>
 </head>
 <body>
-<div class="float-px"></div>
-<div class="float-px"></div>
-<div class="float-px"></div>
-<div class="float-px"></div>
-<div class="float-px"></div>
+<div class="float-px"></div><div class="float-px"></div><div class="float-px"></div><div class="float-px"></div><div class="float-px"></div>
 <div class="watermark">mufi</div>
 
 <div class="wrap">
+  <h1 id="mainTitle">WHICH SOUL ARE YOU?</h1>
+  <div class="subtitle" id="subtitleEl">an undertale-style test</div>
   <div class="lang-row" id="langRow"></div>
 
-  <h1 id="titleText">ЯКА ТИ ДУША?</h1>
-  <div class="subtitle" id="subtitleText">тест у стилі undertale</div>
-
-  <div class="pixel-frame" id="frameSetup">
-    <div class="pixel-panel" id="screenSetup">
-      <div class="group-title" id="step1Text">КРОК 1 — ОБЕРИ НАБІР ДУШ</div>
-      <div class="option-row" id="setChoices"></div>
-
-      <div class="group-title" id="step2Text">КРОК 2 — ОБЕРИ ТОЧНІСТЬ</div>
-      <div class="option-row" id="accChoices"></div>
-
-      <button class="pixel-btn start-btn" id="startBtn" disabled></button>
+  <div class="pixel-panel hidden" id="screenResume" style="text-align:center;">
+    <div class="group-title" id="resumeTitleEl">CONTINUE?</div>
+    <div class="result-caption" id="resumeCaptionEl" style="margin-bottom:18px;"></div>
+    <div class="option-row" style="margin-bottom:0;">
+      <button class="pixel-btn start-btn" id="resumeContinueBtn"></button>
+      <button class="pixel-btn" id="resumeRestartBtn"></button>
     </div>
   </div>
 
-  <div class="pixel-frame hidden" id="frameQuiz">
-    <div class="pixel-panel" id="screenQuiz">
-      <div class="progress-wrap">
-        <span id="progressLabel">1 / 10</span>
-        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
-      </div>
-      <div class="question-text" id="questionText" style="margin-top:18px;"></div>
-      <div class="answers" id="answersWrap"></div>
-    </div>
+  <div class="pixel-panel" id="screenSetup">
+    <div class="group-title" id="step1Title">STEP 1</div>
+    <div class="option-row" id="setChoices"></div>
+    <div class="group-title" id="step2Title">STEP 2</div>
+    <div class="option-row" id="accChoices"></div>
+    <button class="pixel-btn start-btn" id="startBtn" disabled></button>
   </div>
 
-  <div class="pixel-frame hidden" id="frameResult">
-    <div class="pixel-panel" id="screenResult" style="text-align:center;">
-      <div class="group-title" id="resultTitleText" style="justify-content:center;">РЕЗУЛЬТАТ</div>
-      <div id="resultHeart"></div>
-      <div class="result-name" id="resultName"></div>
-      <div class="result-caption" id="resultCaption"></div>
-      <button class="pixel-btn start-btn" id="restartBtn"></button>
+  <div class="pixel-panel hidden" id="screenQuiz">
+    <div class="progress-wrap">
+      <span id="progressLabel">1 / 10</span>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
     </div>
+    <div class="question-text" id="questionText" style="margin-top:18px;"></div>
+    <div class="answers" id="answersWrap"></div>
   </div>
 
-  <footer id="footerText">* натхненно кольорами душ із Undertale<br>та користувацькою таблицею рис характеру</footer>
+  <div class="pixel-panel hidden" id="screenResult" style="text-align:center;">
+    <div class="group-title" id="resultGroupTitle">RESULT</div>
+    <div id="resultHeart"></div>
+    <div class="result-name" id="resultName"></div>
+    <div class="result-caption" id="resultCaption"></div>
+    <button class="pixel-btn start-btn" id="restartBtn"></button>
+  </div>
+
+  <footer id="footerEl"></footer>
 </div>
 
 <script>
-/* ============ i18n data ============ */
-const LANGS = [
-  {code:"uk",flag:"🇺🇦"},
-  {code:"ru",flag:"🇷🇺"},
-  {code:"en",flag:"🇬🇧"},
-  {code:"de",flag:"🇩🇪"},
-  {code:"be",flag:"🇧🇾"},
-  {code:"pl",flag:"🇵🇱"},
-  {code:"es",flag:"🇪🇸"},
-];
+/* ================= i18n data ================= */
+const HUES_CLASSIC = [0,30,52,120,185,230,280];
+const HUES_EXT = Array.from({length:18}, (_,i)=>Math.round(i*(300/17)));
+HUES_EXT.push(0); // last slot = love -> rendered white
 
-const UI = {
-  uk:{title:"ЯКА ТИ ДУША?",subtitle:"тест у стилі undertale",step1:"КРОК 1 — ОБЕРИ НАБІР ДУШ",step2:"КРОК 2 — ОБЕРИ ТОЧНІСТЬ",
-    setLabels:["7 ДУШ (ОРИГІНАЛ)","19 ДУШ (РОЗШИРЕНО)"],setHints:["класичні кольори з Undertale","за таблицею рис характеру"],
-    accLabels:["ШВИДКИЙ","СЕРЕДНІЙ","МАКСИМАЛЬНИЙ"],accHints:["менше запитань, менш точно","збалансований варіант","найбільше запитань, точніше"],
-    startBtn:"▶ ПОЧАТИ ТЕСТ",restartBtn:"↺ ПРОЙТИ ЩЕ РАЗ",resultTitle:"РЕЗУЛЬТАТ",
-    resultCaption:"Твоя душа набрала найвищий бал за відповідями у тесті ({set}).",
+const LANGS = {
+  uk:{ flag:"🇺🇦",
+    title:"ЯКА ТИ ДУША?", subtitle:"тест у стилі undertale",
+    step1:"КРОК 1 — ОБЕРИ НАБІР ДУШ", step2:"КРОК 2 — ОБЕРИ ТОЧНІСТЬ",
+    classicLabel:"7 ДУШ (ОРИГІНАЛ)", classicHint:"класичні кольори з Undertale",
+    extendedLabel:"19 ДУШ (РОЗШИРЕНО)", extendedHint:"за таблицею рис характеру",
+    accFastLabel:"ШВИДКИЙ", accFastHint:"менше запитань, менш точно",
+    accMediumLabel:"СЕРЕДНІЙ", accMediumHint:"збалансований варіант",
+    accMaxLabel:"МАКСИМАЛЬНИЙ", accMaxHint:"найбільше запитань, точніше",
+    startBtn:"▶ ПОЧАТИ ТЕСТ", restartBtn:"↺ ПРОЙТИ ЩЕ РАЗ", resultTitle:"РЕЗУЛЬТАТ",
+    resultCaption:s=>`Твоя душа набрала найвищий бал за відповідями у тесті (${s}).`,
+    resumeTitle:"ПРОДОВЖИТИ?", resumeCaption:"Схоже, тест було перервано на середині.", resumeContinueBtn:"▶ ПРОДОВЖИТИ", resumeRestartBtn:"↺ ПОЧАТИ ЗАНОВО",
+    footer:"* натхненно кольорами душ із Undertale<br>та користувацькою таблицею рис характеру",
     likert:["Зовсім не про мене","Скоріше ні","Важко сказати","Скоріше так","Це точно про мене"],
-    footer:"* натхненно кольорами душ із Undertale<br>та користувацькою таблицею рис характеру"},
-  ru:{title:"КАКАЯ ТЫ ДУША?",subtitle:"тест в стиле undertale",step1:"ШАГ 1 — ВЫБЕРИ НАБОР ДУШ",step2:"ШАГ 2 — ВЫБЕРИ ТОЧНОСТЬ",
-    setLabels:["7 ДУШ (ОРИГИНАЛ)","19 ДУШ (РАСШИРЕННО)"],setHints:["классические цвета из Undertale","по таблице черт характера"],
-    accLabels:["БЫСТРЫЙ","СРЕДНИЙ","МАКСИМАЛЬНЫЙ"],accHints:["меньше вопросов, менее точно","сбалансированный вариант","больше всего вопросов, точнее"],
-    startBtn:"▶ НАЧАТЬ ТЕСТ",restartBtn:"↺ ПРОЙТИ ЕЩЁ РАЗ",resultTitle:"РЕЗУЛЬТАТ",
-    resultCaption:"Твоя душа набрала наивысший балл по ответам в тесте ({set}).",
-    likert:["Совсем не про меня","Скорее нет","Затрудняюсь ответить","Скорее да","Это точно про меня"],
-    footer:"* вдохновлено цветами душ из Undertale<br>и пользовательской таблицей черт характера"},
-  en:{title:"WHAT SOUL ARE YOU?",subtitle:"an undertale-style quiz",step1:"STEP 1 — PICK A SOUL SET",step2:"STEP 2 — PICK ACCURACY",
-    setLabels:["7 SOULS (ORIGINAL)","19 SOULS (EXTENDED)"],setHints:["classic Undertale colors","based on a traits chart"],
-    accLabels:["QUICK","MEDIUM","MAXIMUM"],accHints:["fewer questions, less accurate","a balanced option","most questions, most accurate"],
-    startBtn:"▶ START THE QUIZ",restartBtn:"↺ TAKE IT AGAIN",resultTitle:"RESULT",
-    resultCaption:"Your soul scored highest in this quiz ({set}).",
-    likert:["Not me at all","Not really","Hard to say","Somewhat true","Totally me"],
-    footer:"* inspired by the Undertale soul colors<br>and a fan-made traits chart"},
-  de:{title:"WELCHE SEELE BIST DU?",subtitle:"ein Quiz im Undertale-Stil",step1:"SCHRITT 1 — SEELEN-SET WÄHLEN",step2:"SCHRITT 2 — GENAUIGKEIT WÄHLEN",
-    setLabels:["7 SEELEN (ORIGINAL)","19 SEELEN (ERWEITERT)"],setHints:["klassische Undertale-Farben","nach einer Charaktertabelle"],
-    accLabels:["SCHNELL","MITTEL","MAXIMAL"],accHints:["weniger Fragen, ungenauer","ausgewogene Variante","meiste Fragen, am genauesten"],
-    startBtn:"▶ QUIZ STARTEN",restartBtn:"↺ NOCHMAL MACHEN",resultTitle:"ERGEBNIS",
-    resultCaption:"Deine Seele hat im Quiz die höchste Punktzahl erreicht ({set}).",
-    likert:["Gar nicht ich","Eher nicht","Schwer zu sagen","Eher ja","Total ich"],
-    footer:"* inspiriert von den Undertale-Seelenfarben<br>und einer Fan-Charaktertabelle"},
-  be:{title:"ЯКАЯ ТЫ ДУША?",subtitle:"тэст у стылі undertale",step1:"КРОК 1 — АБЯРЫ НАБОР ДУШ",step2:"КРОК 2 — АБЯРЫ ДАКЛАДНАСЦЬ",
-    setLabels:["7 ДУШ (АРЫГІНАЛ)","19 ДУШ (РАСШЫРАНА)"],setHints:["класічныя колеры з Undertale","паводле табліцы рыс характару"],
-    accLabels:["ХУТКІ","СЯРЭДНІ","МАКСІМАЛЬНЫ"],accHints:["менш пытанняў, менш дакладна","збалансаваны варыянт","найбольш пытанняў, дакладней"],
-    startBtn:"▶ ПАЧАЦЬ ТЭСТ",restartBtn:"↺ ПРАЙСЦІ ЯШЧЭ РАЗ",resultTitle:"ВЫНІК",
-    resultCaption:"Твая душа набрала найвышэйшы бал у тэсце ({set}).",
-    likert:["Зусім не пра мяне","Хутчэй не","Цяжка сказаць","Хутчэй так","Гэта дакладна пра мяне"],
-    footer:"* натхнёна колерамі душ з Undertale<br>і карыстальніцкай табліцай рыс характару"},
-  pl:{title:"JAKĄ JESTEŚ DUSZĄ?",subtitle:"quiz w stylu undertale",step1:"KROK 1 — WYBIERZ ZESTAW DUSZ",step2:"KROK 2 — WYBIERZ DOKŁADNOŚĆ",
-    setLabels:["7 DUSZ (ORYGINAŁ)","19 DUSZ (ROZSZERZONE)"],setHints:["klasyczne kolory z Undertale","wg tabeli cech charakteru"],
-    accLabels:["SZYBKI","ŚREDNI","MAKSYMALNY"],accHints:["mniej pytań, mniej dokładnie","zbalansowana opcja","najwięcej pytań, dokładniej"],
-    startBtn:"▶ ROZPOCZNIJ TEST",restartBtn:"↺ ZRÓB TO JESZCZE RAZ",resultTitle:"WYNIK",
-    resultCaption:"Twoja dusza zdobyła najwyższy wynik w teście ({set}).",
-    likert:["Zupełnie nie ja","Raczej nie","Trudno powiedzieć","Raczej tak","Zdecydowanie ja"],
-    footer:"* inspirowane kolorami dusz z Undertale<br>i fanowską tabelą cech charakteru"},
-  es:{title:"¿QUÉ ALMA ERES?",subtitle:"un test estilo undertale",step1:"PASO 1 — ELIGE UN CONJUNTO DE ALMAS",step2:"PASO 2 — ELIGE LA PRECISIÓN",
-    setLabels:["7 ALMAS (ORIGINAL)","19 ALMAS (AMPLIADO)"],setHints:["colores clásicos de Undertale","según una tabla de rasgos"],
-    accLabels:["RÁPIDO","MEDIO","MÁXIMO"],accHints:["menos preguntas, menos preciso","opción equilibrada","más preguntas, más preciso"],
-    startBtn:"▶ EMPEZAR EL TEST",restartBtn:"↺ VOLVER A HACERLO",resultTitle:"RESULTADO",
-    resultCaption:"Tu alma obtuvo la puntuación más alta en el test ({set}).",
-    likert:["Nada que ver conmigo","Más bien no","Difícil de decir","Más bien sí","Totalmente yo"],
-    footer:"* inspirado en los colores de las almas de Undertale<br>y una tabla de rasgos hecha por fans"},
-};
-
-const TEMPLATES = {
-  uk:["«{t}» — це моя головна риса характеру.","У важкі моменти я перш за все покладаюся на {t}.","Друзі описують мене як людину, що втілює {t}.","Якби мене описали одним словом, це було б «{t}»."],
-  ru:["«{t}» — это моя главная черта характера.","В трудные моменты я прежде всего полагаюсь на {t}.","Друзья описали бы меня как человека, воплощающего {t}.","Если бы меня описали одним словом, это было бы «{t}»."],
-  en:["I'd describe myself as: “{t}”.","In hard times, I rely on {t} the most.","Friends would say I show {t}.","If one word summed me up, it'd be “{t}”."],
-  de:["Das bin ich: „{t}“.","In schweren Momenten verlasse ich mich vor allem auf {t}.","Freunde würden sagen, ich verkörpere {t}.","Ein Wort für mich wäre „{t}“."],
-  be:["«{t}» — гэта мая галоўная рыса характару.","У цяжкія моманты я перш за ўсё спадзяюся на {t}.","Сябры сказалі б, што я ўвасабляю {t}.","Калі б мяне апісалі адным словам, гэта было б «{t}»."],
-  pl:["To ja: „{t}”.","W trudnych chwilach polegam przede wszystkim na {t}.","Znajomi powiedzieliby, że ucieleśniam {t}.","Gdyby opisać mnie jednym słowem, byłoby to „{t}”."],
-  es:["Así soy yo: «{t}».","En los momentos difíciles, confío sobre todo en {t}.","Mis amigos dirían que reflejo {t}.","Si tuviera que resumirme en una palabra, sería «{t}»."],
-};
-
-const NAMES = {
-  classic:{
-    uk:["Рішучість","Хоробрість","Справедливість","Доброта","Терпіння","Чесність","Наполегливість"],
-    ru:["Решимость","Храбрость","Справедливость","Доброта","Терпение","Честность","Настойчивость"],
-    en:["Determination","Bravery","Justice","Kindness","Patience","Integrity","Perseverance"],
-    de:["Entschlossenheit","Tapferkeit","Gerechtigkeit","Freundlichkeit","Geduld","Aufrichtigkeit","Beharrlichkeit"],
-    be:["Рашучасць","Смеласць","Справядлівасць","Дабрыня","Цярпенне","Сумленнасць","Настойлівасць"],
-    pl:["Determinacja","Odwaga","Sprawiedliwość","Dobroć","Cierpliwość","Uczciwość","Wytrwałość"],
-    es:["Determinación","Valentía","Justicia","Bondad","Paciencia","Integridad","Perseverancia"],
+    templates:["«{t}» — це моя головна риса характеру.","У важкі моменти я перш за все покладаюся на «{t}».","Друзі описують мене як людину, що втілює «{t}».","Я готовий(-а) захищати «{t}» до кінця, навіть коли важко.","Найбільше я ціную в собі «{t}».","Якби мене описали одним словом, це було б «{t}»."],
+    namesClassic:["Рішучість","Хоробрість","Справедливість","Доброта","Терпіння","Чесність","Наполегливість"],
+    namesExtended:["Стійкість","Самовідданість","Хоробрість","Сміливість","Справедливість","Безкорисливість","Доброта","Співчуття","Терпіння","Спокій","Порядність","Мораль","Наполегливість","Мотивація","Самостійність","Старанність","Впевненість","Рішучість","Любов"]
   },
-  extended:{
-    uk:["Стійкість","Самовідданість","Хоробрість","Сміливість","Справедливість","Безкорисливість","Доброта","Співчуття","Терпіння","Спокій","Порядність","Мораль","Наполегливість","Мотивація","Самостійність","Старанність","Впевненість","Рішучість","Любов"],
-    ru:["Стойкость","Самоотверженность","Храбрость","Смелость","Справедливость","Бескорыстие","Доброта","Сочувствие","Терпение","Спокойствие","Порядочность","Мораль","Настойчивость","Мотивация","Самостоятельность","Старательность","Уверенность","Решительность","Любовь"],
-    en:["Resilience","Selflessness","Bravery","Courage","Justice","Generosity","Kindness","Compassion","Patience","Calm","Integrity","Morality","Persistence","Motivation","Independence","Diligence","Confidence","Determination","Love"],
-    de:["Standhaftigkeit","Aufopferung","Tapferkeit","Mut","Gerechtigkeit","Selbstlosigkeit","Freundlichkeit","Mitgefühl","Geduld","Gelassenheit","Anständigkeit","Moral","Beharrlichkeit","Motivation","Selbstständigkeit","Fleiß","Zuversicht","Entschlossenheit","Liebe"],
-    be:["Стойкасць","Самаахвярнасць","Смеласць","Адвага","Справядлівасць","Бескарыслівасць","Дабрыня","Спагада","Цярпенне","Спакой","Парадачнасць","Мараль","Настойлівасць","Матывацыя","Самастойнасць","Стараннасць","Упэўненасць","Рашучасць","Каханне"],
-    pl:["Wytrwałość","Poświęcenie","Odwaga","Śmiałość","Sprawiedliwość","Bezinteresowność","Dobroć","Współczucie","Cierpliwość","Spokój","Uczciwość","Moralność","Konsekwencja","Motywacja","Samodzielność","Pracowitość","Pewność siebie","Determinacja","Miłość"],
-    es:["Firmeza","Entrega","Valentía","Valor","Justicia","Generosidad","Bondad","Compasión","Paciencia","Calma","Integridad","Moral","Constancia","Motivación","Independencia","Dedicación","Confianza","Determinación","Amor"],
+  ru:{ flag:"🇷🇺",
+    title:"КАКАЯ ТЫ ДУША?", subtitle:"тест в стиле undertale",
+    step1:"ШАГ 1 — ВЫБЕРИ НАБОР ДУШ", step2:"ШАГ 2 — ВЫБЕРИ ТОЧНОСТЬ",
+    classicLabel:"7 ДУШ (ОРИГИНАЛ)", classicHint:"классические цвета из Undertale",
+    extendedLabel:"19 ДУШ (РАСШИРЕНО)", extendedHint:"по таблице черт характера",
+    accFastLabel:"БЫСТРЫЙ", accFastHint:"меньше вопросов, менее точно",
+    accMediumLabel:"СРЕДНИЙ", accMediumHint:"сбалансированный вариант",
+    accMaxLabel:"МАКСИМАЛЬНЫЙ", accMaxHint:"больше всего вопросов, точнее",
+    startBtn:"▶ НАЧАТЬ ТЕСТ", restartBtn:"↺ ПРОЙТИ ЕЩЁ РАЗ", resultTitle:"РЕЗУЛЬТАТ",
+    resultCaption:s=>`Твоя душа набрала наивысший балл в этом тесте (${s}).`,
+    resumeTitle:"ПРОДОЛЖИТЬ?", resumeCaption:"Похоже, тест был прерван на середине.", resumeContinueBtn:"▶ ПРОДОЛЖИТЬ", resumeRestartBtn:"↺ НАЧАТЬ ЗАНОВО",
+    footer:"* вдохновлено цветами душ из Undertale<br>и пользовательской таблицей черт характера",
+    likert:["Совсем не про меня","Скорее нет","Сложно сказать","Скорее да","Это точно про меня"],
+    templates:["«{t}» — моя главная черта характера.","В трудные моменты я больше всего полагаюсь на «{t}».","Друзья сказали бы, что я — воплощение «{t}».","Я готов(а) отстаивать «{t}» до конца, даже когда трудно.","Больше всего я ценю в себе «{t}».","Если бы меня описали одним словом, это было бы «{t}»."],
+    namesClassic:["Решимость","Храбрость","Справедливость","Доброта","Терпение","Честность","Настойчивость"],
+    namesExtended:["Стойкость","Самоотверженность","Храбрость","Смелость","Справедливость","Бескорыстие","Доброта","Сочувствие","Терпение","Спокойствие","Порядочность","Мораль","Настойчивость","Мотивация","Самостоятельность","Старательность","Уверенность","Решимость","Любовь"]
+  },
+  en:{ flag:"🇬🇧",
+    title:"WHICH SOUL ARE YOU?", subtitle:"an undertale-style test",
+    step1:"STEP 1 — CHOOSE A SOUL SET", step2:"STEP 2 — CHOOSE ACCURACY",
+    classicLabel:"7 SOULS (ORIGINAL)", classicHint:"classic Undertale colors",
+    extendedLabel:"19 SOULS (EXTENDED)", extendedHint:"based on the trait chart",
+    accFastLabel:"QUICK", accFastHint:"fewer questions, less precise",
+    accMediumLabel:"MEDIUM", accMediumHint:"balanced option",
+    accMaxLabel:"MAXIMUM", accMaxHint:"most questions, more precise",
+    startBtn:"▶ START THE TEST", restartBtn:"↺ TAKE IT AGAIN", resultTitle:"RESULT",
+    resultCaption:s=>`Your soul scored highest across the test (${s}).`,
+    resumeTitle:"CONTINUE?", resumeCaption:"Looks like the test was interrupted midway.", resumeContinueBtn:"▶ CONTINUE", resumeRestartBtn:"↺ START OVER",
+    footer:"* inspired by Undertale's soul colors<br>and a fan-made trait chart",
+    likert:["Not me at all","Not really","Hard to say","Somewhat true","Absolutely me"],
+    templates:["“{t}” is my main character trait.","In hard moments, I rely on “{t}” the most.","Friends would say I embody “{t}”.","I'd defend “{t}” to the end, even when it's hard.","What I value most in myself is “{t}”.","If one word described me, it would be “{t}”."],
+    namesClassic:["Determination","Bravery","Justice","Kindness","Patience","Integrity","Perseverance"],
+    namesExtended:["Resilience","Selflessness","Bravery","Courage","Justice","Altruism","Kindness","Compassion","Patience","Calm","Integrity","Morality","Persistence","Motivation","Independence","Diligence","Confidence","Determination","Love"]
+  },
+  de:{ flag:"🇩🇪",
+    title:"WELCHE SEELE BIST DU?", subtitle:"ein test im undertale-stil",
+    step1:"SCHRITT 1 — WÄHLE EIN SEELEN-SET", step2:"SCHRITT 2 — WÄHLE DIE GENAUIGKEIT",
+    classicLabel:"7 SEELEN (ORIGINAL)", classicHint:"klassische Undertale-Farben",
+    extendedLabel:"19 SEELEN (ERWEITERT)", extendedHint:"nach der Eigenschaften-Tabelle",
+    accFastLabel:"SCHNELL", accFastHint:"weniger Fragen, weniger genau",
+    accMediumLabel:"MITTEL", accMediumHint:"ausgewogene Option",
+    accMaxLabel:"MAXIMAL", accMaxHint:"meiste Fragen, genauer",
+    startBtn:"▶ TEST STARTEN", restartBtn:"↺ NOCHMAL MACHEN", resultTitle:"ERGEBNIS",
+    resultCaption:s=>`Deine Seele hat im Test die höchste Punktzahl erreicht (${s}).`,
+    resumeTitle:"FORTSETZEN?", resumeCaption:"Es sieht so aus, als wurde der Test mittendrin unterbrochen.", resumeContinueBtn:"▶ FORTSETZEN", resumeRestartBtn:"↺ NEU STARTEN",
+    footer:"* inspiriert von den Seelenfarben aus Undertale<br>und einer Fan-Tabelle der Charaktereigenschaften",
+    likert:["Gar nicht ich","Eher nicht","Schwer zu sagen","Eher schon","Absolut ich"],
+    templates:["„{t}“ ist meine wichtigste Charaktereigenschaft.","In schwierigen Momenten verlasse ich mich am meisten auf „{t}“.","Freunde würden sagen, ich verkörpere „{t}“.","Ich würde „{t}“ bis zum Ende verteidigen, auch wenn es schwerfällt.","Am meisten schätze ich an mir „{t}“.","Wenn man mich mit einem Wort beschreiben müsste, wäre es „{t}“."],
+    namesClassic:["Entschlossenheit","Mut","Gerechtigkeit","Freundlichkeit","Geduld","Integrität","Beharrlichkeit"],
+    namesExtended:["Standhaftigkeit","Selbstlosigkeit","Mut","Tapferkeit","Gerechtigkeit","Altruismus","Freundlichkeit","Mitgefühl","Geduld","Gelassenheit","Integrität","Moral","Beharrlichkeit","Motivation","Unabhängigkeit","Fleiß","Selbstvertrauen","Entschlossenheit","Liebe"]
+  },
+  be:{ flag:"🇧🇾",
+    title:"ЯКАЯ ТЫ ДУША?", subtitle:"тэст у стылі undertale",
+    step1:"КРОК 1 — АБЯРЫ НАБОР ДУШ", step2:"КРОК 2 — АБЯРЫ ТОЧНАСЦЬ",
+    classicLabel:"7 ДУШ (АРЫГІНАЛ)", classicHint:"класічныя колеры з Undertale",
+    extendedLabel:"19 ДУШ (РАСШЫРАНА)", extendedHint:"паводле табліцы рыс характару",
+    accFastLabel:"ХУТКІ", accFastHint:"менш пытанняў, менш дакладна",
+    accMediumLabel:"СЯРЭДНІ", accMediumHint:"збалансаваны варыянт",
+    accMaxLabel:"МАКСІМАЛЬНЫ", accMaxHint:"больш за ўсё пытанняў, дакладней",
+    startBtn:"▶ ПАЧАЦЬ ТЭСТ", restartBtn:"↺ ПРАЙСЦІ ЯШЧЭ РАЗ", resultTitle:"ВЫНІК",
+    resultCaption:s=>`Твая душа набрала найвышэйшы бал у гэтым тэсце (${s}).`,
+    resumeTitle:"ПРАЦЯГНУЦЬ?", resumeCaption:"Падобна, тэст быў перарваны на паўдарозе.", resumeContinueBtn:"▶ ПРАЦЯГНУЦЬ", resumeRestartBtn:"↺ ПАЧАЦЬ ЗАНАВА",
+    footer:"* натхнёна колерамі душ з Undertale<br>і карыстальніцкай табліцай рыс характару",
+    likert:["Зусім не пра мяне","Хутчэй не","Цяжка сказаць","Хутчэй так","Гэта дакладна пра мяне"],
+    templates:["«{t}» — мая галоўная рыса характару.","У складаныя моманты я найбольш спадзяюся на «{t}».","Сябры сказалі б, што я ўвасабляю «{t}».","Я гатовы(-ая) абараняць «{t}» да канца, нават калі гэта цяжка.","Больш за ўсё я цаню ў сабе «{t}».","Калі б мяне апісалі адным словам, гэта было б «{t}»."],
+    namesClassic:["Рашучасць","Смеласць","Справядлівасць","Дабрыня","Цярпенне","Сумленнасць","Настойлівасць"],
+    namesExtended:["Стойкасць","Самаахвярнасць","Смеласць","Адвага","Справядлівасць","Бескарыслівасць","Дабрыня","Спагада","Цярпенне","Спакой","Сумленнасць","Мараль","Настойлівасць","Матывацыя","Самастойнасць","Стараннасць","Упэўненасць","Рашучасць","Каханне"]
+  },
+  pl:{ flag:"🇵🇱",
+    title:"JAKĄ MASZ DUSZĘ?", subtitle:"test w stylu undertale",
+    step1:"KROK 1 — WYBIERZ ZESTAW DUSZ", step2:"KROK 2 — WYBIERZ DOKŁADNOŚĆ",
+    classicLabel:"7 DUSZ (ORYGINAŁ)", classicHint:"klasyczne kolory z Undertale",
+    extendedLabel:"19 DUSZ (ROZSZERZONE)", extendedHint:"wg tabeli cech charakteru",
+    accFastLabel:"SZYBKI", accFastHint:"mniej pytań, mniej dokładnie",
+    accMediumLabel:"ŚREDNI", accMediumHint:"zbalansowana opcja",
+    accMaxLabel:"MAKSYMALNY", accMaxHint:"najwięcej pytań, dokładniej",
+    startBtn:"▶ ROZPOCZNIJ TEST", restartBtn:"↺ SPRÓBUJ PONOWNIE", resultTitle:"WYNIK",
+    resultCaption:s=>`Twoja dusza zdobyła najwyższy wynik w tym teście (${s}).`,
+    resumeTitle:"KONTYNUOWAĆ?", resumeCaption:"Wygląda na to, że test został przerwany w połowie.", resumeContinueBtn:"▶ KONTYNUUJ", resumeRestartBtn:"↺ ZACZNIJ OD NOWA",
+    footer:"* zainspirowane kolorami dusz z Undertale<br>i fanowską tabelą cech charakteru",
+    likert:["Zupełnie nie ja","Raczej nie","Trudno powiedzieć","Raczej tak","Zdecydowanie ja"],
+    templates:["„{t}” to moja główna cecha charakteru.","W trudnych chwilach najbardziej polegam na „{t}”.","Znajomi powiedzieliby, że uosabiam „{t}”.","Broniłbym/broniłabym „{t}” do końca, nawet gdy jest trudno.","Najbardziej cenię w sobie „{t}”.","Gdyby opisać mnie jednym słowem, byłoby to „{t}”."],
+    namesClassic:["Determinacja","Odwaga","Sprawiedliwość","Dobroć","Cierpliwość","Uczciwość","Wytrwałość"],
+    namesExtended:["Wytrwałość","Bezinteresowność","Odwaga","Śmiałość","Sprawiedliwość","Altruizm","Dobroć","Współczucie","Cierpliwość","Spokój","Uczciwość","Moralność","Upór","Motywacja","Niezależność","Pracowitość","Pewność siebie","Determinacja","Miłość"]
+  },
+  es:{ flag:"🇪🇸",
+    title:"¿QUÉ ALMA ERES?", subtitle:"un test estilo undertale",
+    step1:"PASO 1 — ELIGE UN CONJUNTO DE ALMAS", step2:"PASO 2 — ELIGE LA PRECISIÓN",
+    classicLabel:"7 ALMAS (ORIGINAL)", classicHint:"colores clásicos de Undertale",
+    extendedLabel:"19 ALMAS (AMPLIADO)", extendedHint:"según la tabla de rasgos",
+    accFastLabel:"RÁPIDO", accFastHint:"menos preguntas, menos preciso",
+    accMediumLabel:"MEDIO", accMediumHint:"opción equilibrada",
+    accMaxLabel:"MÁXIMO", accMaxHint:"más preguntas, más preciso",
+    startBtn:"▶ EMPEZAR EL TEST", restartBtn:"↺ REPETIR EL TEST", resultTitle:"RESULTADO",
+    resultCaption:s=>`Tu alma obtuvo la puntuación más alta en esta prueba (${s}).`,
+    resumeTitle:"¿CONTINUAR?", resumeCaption:"Parece que la prueba se interrumpió a la mitad.", resumeContinueBtn:"▶ CONTINUAR", resumeRestartBtn:"↺ EMPEZAR DE NUEVO",
+    footer:"* inspirado en los colores de las almas de Undertale<br>y una tabla de rasgos hecha por fans",
+    likert:["Para nada soy así","Más bien no","Difícil de decir","Más bien sí","Totalmente yo"],
+    templates:["«{t}» es mi principal rasgo de carácter.","En los momentos difíciles, confío sobre todo en «{t}».","Mis amigos dirían que encarno «{t}».","Defendería «{t}» hasta el final, incluso cuando es difícil.","Lo que más valoro de mí mismo es «{t}».","Si me describieran con una palabra, sería «{t}»."],
+    namesClassic:["Determinación","Valentía","Justicia","Bondad","Paciencia","Integridad","Perseverancia"],
+    namesExtended:["Resiliencia","Abnegación","Valentía","Coraje","Justicia","Altruismo","Bondad","Compasión","Paciencia","Calma","Integridad","Moralidad","Persistencia","Motivación","Independencia","Diligencia","Confianza","Determinación","Amor"]
   }
 };
 
-const COLORS = {
-  classic:[0,30,52,120,185,230,280].map(hue=>({hue})),
-  extended:(()=>{
-    const raw=[];
-    for(let i=0;i<18;i++) raw.push({hue:Math.round(i*(300/17))});
-    raw.push({hue:0,isWhite:true});
-    return raw;
-  })()
-};
+/* ================= pixel-dust border texture ================= */
+(function(){
+  const dots = [
+    [1,1,'255,255,255',.9],[5,3,'255,217,74',1],[10,1,'125,211,252',.9],[15,4,'255,255,255',.5],
+    [20,2,'193,125,255',1],[3,7,'255,217,74',.8],[8,8,'255,255,255',.6],[13,7,'125,211,252',1],
+    [18,9,'255,217,74',.9],[22,7,'255,255,255',.4],[2,13,'193,125,255',.9],[6,14,'125,211,252',.8],
+    [11,13,'255,217,74',1],[16,15,'255,255,255',.7],[21,14,'125,211,252',.6],[4,19,'255,217,74',.8],
+    [9,20,'255,255,255',.5],[14,19,'193,125,255',1],[19,21,'255,217,74',.7],[0,22,'125,211,252',.9]
+  ];
+  let rects = dots.map(([x,y,c,o])=>`<rect x='${x}' y='${y}' width='2' height='2' fill='rgb(${c})' opacity='${o}'/>`).join('');
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>${rects}</svg>`;
+  document.documentElement.style.setProperty('--dust-tile', `url("data:image/svg+xml,${encodeURIComponent(svg)}")`);
+})();
 
-function soulColor(c){ return c.isWhite ? "#f4f1ff" : `hsl(${c.hue}, 72%, 58%)`; }
+/* ================= soul helpers ================= */
+function getSoulSets(lang){
+  const S = LANGS[lang];
+  const classic = HUES_CLASSIC.map((hue,i)=>({name:S.namesClassic[i], hue}));
+  const extended = HUES_EXT.map((hue,i)=>({name:S.namesExtended[i], hue, isWhite:i===HUES_EXT.length-1}));
+  return [
+    {key:"classic", label:S.classicLabel, hint:S.classicHint, data:classic},
+    {key:"extended", label:S.extendedLabel, hint:S.extendedHint, data:extended}
+  ];
+}
+function getAccuracyTiers(lang){
+  const S = LANGS[lang];
+  return [
+    {key:"fast", label:S.accFastLabel, hint:S.accFastHint, perSoul:1},
+    {key:"medium", label:S.accMediumLabel, hint:S.accMediumHint, perSoul:2},
+    {key:"max", label:S.accMaxLabel, hint:S.accMaxHint, perSoul:3}
+  ];
+}
+function soulColor(s){ return s.isWhite ? "#ffffff" : `hsl(${s.hue}, 72%, 58%)`; }
 
 const HEART_MAP = ["0110110","1111111","1111111","0111110","0011100","0001000"];
-
-/* ============ state ============ */
-let state = {
-  lang:"uk",
-  setKey:null,      // "classic" | "extended"
-  accKey:null,      // "fast" | "medium" | "max"
-  perSoulByAcc:{fast:1, medium:2, max:3},
-  questions:[],     // {soulIndex, templateIdx}
-  scores:[],
-  current:0,
-  winnerIndex:null,
-};
-
-/* ============ dust border generator ============ */
-function scatterDust(frame, colors){
-  const layer = document.createElement("div");
-  layer.className = "dust-layer";
-  const n = 12;
-  const add=(left,top,color,size)=>{
-    const d=document.createElement("div");
-    d.className="dust";
-    d.style.left=left; d.style.top=top;
-    d.style.width=size+"px"; d.style.height=size+"px";
-    d.style.background=color;
-    d.style.opacity=(0.45+Math.random()*0.5).toFixed(2);
-    layer.appendChild(d);
-  };
-  const pick=()=>colors[Math.floor(Math.random()*colors.length)];
-  for(let i=0;i<n;i++){
-    const pct=(i/(n-1))*100, j=Math.random()*6-1, s=3+Math.round(Math.random()*3);
-    add(`calc(${pct}% - ${s/2}px)`, `${-2-j}px`, pick(), s);
-  }
-  for(let i=0;i<n;i++){
-    const pct=(i/(n-1))*100, j=Math.random()*6-1, s=3+Math.round(Math.random()*3);
-    add(`calc(${pct}% - ${s/2}px)`, `calc(100% - ${s/2}px + ${j}px)`, pick(), s);
-  }
-  for(let i=0;i<n;i++){
-    const pct=(i/(n-1))*100, j=Math.random()*6-1, s=3+Math.round(Math.random()*3);
-    add(`${-2-j}px`, `calc(${pct}% - ${s/2}px)`, pick(), s);
-  }
-  for(let i=0;i<n;i++){
-    const pct=(i/(n-1))*100, j=Math.random()*6-1, s=3+Math.round(Math.random()*3);
-    add(`calc(100% - ${s/2}px + ${j}px)`, `calc(${pct}% - ${s/2}px)`, pick(), s);
-  }
-  [[0,0],[100,0],[0,100],[100,100]].forEach(([cx,cy])=>{
-    for(let i=0;i<6;i++){
-      const s=3+Math.round(Math.random()*4), ox=Math.random()*14-7, oy=Math.random()*14-7;
-      add(`calc(${cx}% - ${s/2}px + ${ox}px)`, `calc(${cy}% - ${s/2}px + ${oy}px)`, pick(), s);
-    }
-  });
-  frame.appendChild(layer);
-}
-const DUST_PALETTE = ["#f0c24b","#c3bcdd","#7fe0c4","#8fd6f5","#f58f8f","#c9a3ff"];
-scatterDust(document.getElementById("frameSetup"), DUST_PALETTE);
-scatterDust(document.getElementById("frameQuiz"), DUST_PALETTE);
-scatterDust(document.getElementById("frameResult"), DUST_PALETTE);
-
-/* ============ heart render ============ */
 function renderHeart(container, color, px){
   container.innerHTML = "";
   const grid = document.createElement("div");
@@ -564,151 +449,194 @@ function renderHeart(container, color, px){
   container.appendChild(grid);
 }
 
-/* ============ screen transitions ============ */
-function showScreen(frameId, panelId){
-  document.getElementById(frameId).classList.remove("hidden");
-  const panel = document.getElementById(panelId);
-  panel.classList.remove("in");
-  requestAnimationFrame(()=>requestAnimationFrame(()=>panel.classList.add("in")));
+/* ================= screen transitions ================= */
+function showScreen(id){
+  const el = document.getElementById(id);
+  el.classList.remove("hidden"); el.classList.remove("in");
+  requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add("in")));
 }
-function hideScreen(frameId, panelId){
-  document.getElementById(frameId).classList.add("hidden");
-  document.getElementById(panelId).classList.remove("in");
-}
-
-/* ============ language application ============ */
-const langRow = document.getElementById("langRow");
-LANGS.forEach(l=>{
-  const btn = document.createElement("button");
-  btn.className = "lang-btn" + (l.code===state.lang ? " active" : "");
-  btn.textContent = l.flag + " " + l.code.toUpperCase();
-  btn.addEventListener("click", ()=>setLang(l.code));
-  btn.dataset.code = l.code;
-  langRow.appendChild(btn);
-});
-
-function setLang(code){
-  state.lang = code;
-  [...langRow.children].forEach(b=>b.classList.toggle("active", b.dataset.code===code));
-  applyStaticText();
-  renderSetupOptions();
-  checkReady();
-  if(!document.getElementById("frameQuiz").classList.contains("hidden") && state.questions.length){
-    renderQuestion(false);
-  }
-  if(!document.getElementById("frameResult").classList.contains("hidden") && state.winnerIndex!==null){
-    renderResultText();
-  }
+function hideScreen(id){
+  const el = document.getElementById(id);
+  el.classList.add("hidden"); el.classList.remove("in");
 }
 
-function applyStaticText(){
-  const t = UI[state.lang];
-  document.getElementById("titleText").textContent = t.title;
-  document.getElementById("subtitleText").textContent = t.subtitle;
-  document.getElementById("step1Text").textContent = t.step1;
-  document.getElementById("step2Text").textContent = t.step2;
-  document.getElementById("startBtn").textContent = t.startBtn;
-  document.getElementById("restartBtn").textContent = t.restartBtn;
-  document.getElementById("resultTitleText").textContent = t.resultTitle;
-  document.getElementById("footerText").innerHTML = t.footer;
+/* ================= state ================= */
+const browserLang = (navigator.language||"uk").slice(0,2);
+let state = {
+  lang: LANGS[browserLang] ? browserLang : "uk",
+  soulSetKey:null, accuracyKey:null,
+  questions:[], scores:[], current:0, winnerIndex:null,
+  screen:"setup"
+};
+
+/* ================= progress persistence ================= */
+const SAVE_KEY = "soulQuizProgress_v1";
+function saveProgress(){
+  try{
+    localStorage.setItem(SAVE_KEY, JSON.stringify({
+      lang:state.lang, soulSetKey:state.soulSetKey, accuracyKey:state.accuracyKey,
+      questions:state.questions, scores:state.scores, current:state.current,
+      winnerIndex:state.winnerIndex, screen:state.screen
+    }));
+  }catch(e){}
+}
+function loadProgress(){
+  try{ const raw = localStorage.getItem(SAVE_KEY); return raw ? JSON.parse(raw) : null; }
+  catch(e){ return null; }
+}
+function clearProgress(){
+  try{ localStorage.removeItem(SAVE_KEY); }catch(e){}
 }
 
-/* ============ setup screen options ============ */
 const setChoicesEl = document.getElementById("setChoices");
 const accChoicesEl = document.getElementById("accChoices");
 const startBtn = document.getElementById("startBtn");
-const SET_KEYS = ["classic","extended"];
-const ACC_KEYS = ["fast","medium","max"];
+const langRow = document.getElementById("langRow");
 
-function renderSetupOptions(){
-  const t = UI[state.lang];
+Object.keys(LANGS).forEach(code=>{
+  const b = document.createElement("button");
+  b.className = "lang-btn";
+  b.dataset.lang = code;
+  b.textContent = LANGS[code].flag + " " + code.toUpperCase();
+  b.addEventListener("click", ()=>applyLanguage(code));
+  langRow.appendChild(b);
+});
+
+function buildSetChoices(){
+  const sets = getSoulSets(state.lang);
   setChoicesEl.innerHTML = "";
-  SET_KEYS.forEach((key,i)=>{
+  sets.forEach(opt=>{
     const btn = document.createElement("button");
-    btn.className = "pixel-btn" + (state.setKey===key ? " selected" : "");
-    btn.innerHTML = t.setLabels[i] + "<small>"+t.setHints[i]+"</small>";
-    btn.addEventListener("click", ()=>{
-      state.setKey = key;
-      [...setChoicesEl.children].forEach(c=>c.classList.remove("selected"));
-      btn.classList.add("selected");
-      checkReady();
-    });
+    btn.className = "pixel-btn" + (state.soulSetKey===opt.key ? " selected":"");
+    btn.innerHTML = opt.label + "<small>"+opt.hint+"</small>";
+    btn.addEventListener("click", ()=>{ state.soulSetKey = opt.key; buildSetChoices(); checkReady(); });
     setChoicesEl.appendChild(btn);
   });
+}
+function buildAccChoices(){
+  const tiers = getAccuracyTiers(state.lang);
   accChoicesEl.innerHTML = "";
-  ACC_KEYS.forEach((key,i)=>{
+  tiers.forEach(opt=>{
     const btn = document.createElement("button");
-    btn.className = "pixel-btn" + (state.accKey===key ? " selected" : "");
-    btn.innerHTML = t.accLabels[i] + "<small>"+t.accHints[i]+"</small>";
-    btn.addEventListener("click", ()=>{
-      state.accKey = key;
-      [...accChoicesEl.children].forEach(c=>c.classList.remove("selected"));
-      btn.classList.add("selected");
-      checkReady();
-    });
+    btn.className = "pixel-btn" + (state.accuracyKey===opt.key ? " selected":"");
+    btn.innerHTML = opt.label + "<small>"+opt.hint+"</small>";
+    btn.addEventListener("click", ()=>{ state.accuracyKey = opt.key; buildAccChoices(); checkReady(); });
     accChoicesEl.appendChild(btn);
   });
 }
-function checkReady(){ startBtn.disabled = !(state.setKey && state.accKey); }
+function checkReady(){ startBtn.disabled = !(state.soulSetKey && state.accuracyKey); }
 
-startBtn.addEventListener("click", startQuiz);
+function applyLanguage(lang){
+  state.lang = lang;
+  const S = LANGS[lang];
+  document.documentElement.lang = lang;
+  document.getElementById("mainTitle").textContent = S.title;
+  document.getElementById("subtitleEl").textContent = S.subtitle;
+  document.getElementById("step1Title").textContent = S.step1;
+  document.getElementById("step2Title").textContent = S.step2;
+  startBtn.textContent = S.startBtn;
+  document.getElementById("restartBtn").textContent = S.restartBtn;
+  document.getElementById("resultGroupTitle").textContent = S.resultTitle;
+  document.getElementById("footerEl").innerHTML = S.footer;
+  buildSetChoices();
+  buildAccChoices();
+  [...langRow.children].forEach(b=>b.classList.toggle("active", b.dataset.lang===lang));
+
+  if(!document.getElementById("screenQuiz").classList.contains("hidden") && state.questions.length){
+    renderQuestion(false);
+  }
+  if(!document.getElementById("screenResult").classList.contains("hidden") && state.winnerIndex!==null){
+    renderResult();
+  }
+  document.getElementById("resumeTitleEl").textContent = S.resumeTitle;
+  document.getElementById("resumeCaptionEl").textContent = S.resumeCaption;
+  document.getElementById("resumeContinueBtn").textContent = S.resumeContinueBtn;
+  document.getElementById("resumeRestartBtn").textContent = S.resumeRestartBtn;
+}
+
 document.getElementById("restartBtn").addEventListener("click", ()=>{
-  hideScreen("frameResult","screenResult");
-  showScreen("frameSetup","screenSetup");
+  clearProgress();
+  state.questions = []; state.scores = []; state.current = 0; state.winnerIndex = null;
+  state.soulSetKey = null; state.accuracyKey = null; state.screen = "setup";
+  buildSetChoices(); buildAccChoices(); checkReady();
+  hideScreen("screenResult");
+  showScreen("screenSetup");
 });
 
-/* ============ quiz logic ============ */
-function shuffle(arr){
-  for(let i=arr.length-1;i>0;i--){
-    const j = Math.floor(Math.random()*(i+1));
-    [arr[i],arr[j]]=[arr[j],arr[i]];
+document.getElementById("resumeRestartBtn").addEventListener("click", ()=>{
+  clearProgress();
+  state.screen = "setup";
+  hideScreen("screenResume");
+  showScreen("screenSetup");
+});
+
+document.getElementById("resumeContinueBtn").addEventListener("click", ()=>{
+  const saved = loadProgress();
+  hideScreen("screenResume");
+  if(!saved){ showScreen("screenSetup"); return; }
+  applyLanguage(saved.lang);
+  state.soulSetKey = saved.soulSetKey;
+  state.accuracyKey = saved.accuracyKey;
+  state.questions = saved.questions;
+  state.scores = saved.scores;
+  state.current = saved.current;
+  state.winnerIndex = saved.winnerIndex;
+  state.screen = saved.screen;
+  buildSetChoices(); buildAccChoices(); checkReady();
+  if(saved.screen === "result"){
+    renderResult();
+    showScreen("screenResult");
+  } else {
+    renderQuestion(false);
+    showScreen("screenQuiz");
   }
+});
+
+function shuffle(arr){
+  for(let i=arr.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
   return arr;
 }
 
 function startQuiz(){
-  const souls = COLORS[state.setKey];
-  const perSoul = state.perSoulByAcc[state.accKey];
+  const soulData = getSoulSets(state.lang).find(s=>s.key===state.soulSetKey).data;
+  const tier = getAccuracyTiers(state.lang).find(t=>t.key===state.accuracyKey);
   let qs = [];
-  souls.forEach((_,idx)=>{
-    for(let k=0;k<perSoul;k++){
-      qs.push({ soulIndex: idx, templateIdx: k % 4 });
-    }
+  soulData.forEach((soul, idx)=>{
+    for(let k=0;k<tier.perSoul;k++){ qs.push({ templateIndex:k, soulIndex:idx }); }
   });
   qs = shuffle(qs);
 
   state.questions = qs;
-  state.scores = souls.map(()=>0);
+  state.scores = soulData.map(()=>0);
   state.current = 0;
   state.winnerIndex = null;
+  state.screen = "quiz";
 
-  hideScreen("frameSetup","screenSetup");
-  showScreen("frameQuiz","screenQuiz");
+  hideScreen("screenSetup");
+  showScreen("screenQuiz");
   renderQuestion(true);
+  saveProgress();
 }
+startBtn.addEventListener("click", startQuiz);
 
 function renderQuestion(animate){
+  const S = LANGS[state.lang];
+  const soulData = getSoulSets(state.lang).find(s=>s.key===state.soulSetKey).data;
   const q = state.questions[state.current];
-  const t = UI[state.lang];
-  const names = NAMES[state.setKey][state.lang];
-  const template = TEMPLATES[state.lang][q.templateIdx];
-  const text = template.replace("{t}", names[q.soulIndex].toLowerCase());
+  const text = S.templates[q.templateIndex % S.templates.length].replace("{t}", soulData[q.soulIndex].name.toLowerCase());
 
   const qText = document.getElementById("questionText");
   qText.classList.remove("in");
   qText.textContent = text;
-  if(animate){
-    requestAnimationFrame(()=>requestAnimationFrame(()=>qText.classList.add("in")));
-  } else {
-    qText.classList.add("in");
-  }
+  if(animate!==false){ requestAnimationFrame(()=>requestAnimationFrame(()=>qText.classList.add("in"))); }
+  else { qText.classList.add("in"); }
 
   document.getElementById("progressLabel").textContent = (state.current+1) + " / " + state.questions.length;
   document.getElementById("progressFill").style.width = Math.round((state.current/state.questions.length)*100) + "%";
 
   const wrap = document.getElementById("answersWrap");
   wrap.innerHTML = "";
-  t.likert.forEach((label,v)=>{
+  S.likert.forEach((label,v)=>{
     const btn = document.createElement("button");
     btn.className = "pixel-btn";
     btn.textContent = label;
@@ -720,39 +648,45 @@ function renderQuestion(animate){
 function answer(soulIndex, value){
   state.scores[soulIndex] += value;
   state.current++;
-  if(state.current >= state.questions.length){
-    showResult();
-  } else {
-    renderQuestion(true);
-  }
+  if(state.current >= state.questions.length){ showResult(); }
+  else { renderQuestion(true); saveProgress(); }
 }
 
 function showResult(){
-  hideScreen("frameQuiz","screenQuiz");
+  hideScreen("screenQuiz");
   const max = Math.max(...state.scores);
-  const winners = state.scores.map((s,i)=>s===max?i:-1).filter(i=>i>=0);
+  const winners = state.scores.map((v,i)=>v===max?i:-1).filter(i=>i!==-1);
   state.winnerIndex = winners[Math.floor(Math.random()*winners.length)];
-  renderResultText();
-  showScreen("frameResult","screenResult");
+  state.screen = "result";
+  renderResult();
+  showScreen("screenResult");
+  saveProgress();
 }
 
-function renderResultText(){
-  const t = UI[state.lang];
-  const names = NAMES[state.setKey][state.lang];
-  const setLabel = UI[state.lang].setLabels[SET_KEYS.indexOf(state.setKey)];
-  const color = soulColor(COLORS[state.setKey][state.winnerIndex]);
+function renderResult(){
+  const S = LANGS[state.lang];
+  const setOpt = getSoulSets(state.lang).find(s=>s.key===state.soulSetKey);
+  const winner = setOpt.data[state.winnerIndex];
+  const color = soulColor(winner);
 
   renderHeart(document.getElementById("resultHeart"), color, 18);
-  document.getElementById("resultName").textContent = names[state.winnerIndex].toUpperCase();
-  document.getElementById("resultName").style.color = color;
-  document.getElementById("resultCaption").textContent = t.resultCaption.replace("{set}", setLabel.toLowerCase());
+  const nameEl = document.getElementById("resultName");
+  nameEl.textContent = winner.name.toUpperCase();
+  nameEl.style.color = color;
+  document.getElementById("resultCaption").textContent = S.resultCaption(setOpt.label.toLowerCase());
 }
 
-/* ============ init ============ */
-applyStaticText();
-renderSetupOptions();
-showScreen("frameSetup","screenSetup");
-console.log("made by mufi (mufi4ek)");
+/* init */
+const saved = loadProgress();
+if(saved && (saved.screen === "quiz" || saved.screen === "result") &&
+   ((saved.screen === "quiz" && saved.questions && saved.questions.length) ||
+    (saved.screen === "result" && saved.winnerIndex !== null))){
+  applyLanguage(saved.lang && LANGS[saved.lang] ? saved.lang : state.lang);
+  showScreen("screenResume");
+} else {
+  applyLanguage(state.lang);
+  showScreen("screenSetup");
+}
 </script>
 </body>
 </html>
