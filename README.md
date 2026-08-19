@@ -4,7 +4,7 @@ Soul Quiz is an original, author-created interactive quiz inspired by the concep
 
 The project includes a multilingual interface, interactive questions, personalized results, language persistence, and result history.
 
-## Copyright & Usage 
+## Copyright & Usage
 
 © 2026 mufi4ek. All rights reserved.
 
@@ -28,4 +28,4 @@ Any unauthorized use, reproduction, distribution, modification, or publication i
 
 For permission requests, contact:
 
-**vlamisdev@gmail.com**
+**owner@renai3es.pp.ua | vlamisdev@gmail.com**
