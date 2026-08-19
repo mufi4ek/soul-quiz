@@ -584,9 +584,61 @@ function clearProgress(){ try{ localStorage.removeItem(SAVE_KEY); }catch(e){} }
 
 /* ============ results history (local to this browser) ============ */
 const HISTORY_KEY = "soulQuizHistory_v1";
-function loadHistory(){
-  try{ return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]"); }catch(e){ return []; }
+
+// Older versions of the quiz stored only the Ukrainian soul name.
+// Convert those entries to {setKey, soulIndex} so they can be translated
+// correctly when the visitor switches languages.
+function normalizeHistoryItem(item){
+  if(!item || typeof item !== "object") return item;
+
+  if(item.setKey && Number.isInteger(item.soulIndex) &&
+     NAMES[item.setKey] && NAMES[item.setKey].uk &&
+     NAMES[item.setKey].uk[item.soulIndex] !== undefined){
+    return item;
+  }
+
+  const candidates = [];
+  for(const setKey of Object.keys(NAMES)){
+    for(const lang of Object.keys(NAMES[setKey])){
+      const index = NAMES[setKey][lang].indexOf(item.name);
+      if(index !== -1){
+        candidates.push({setKey, soulIndex:index});
+      }
+    }
+  }
+
+  // Prefer a candidate whose stored color matches the old result.
+  let match = candidates.find(candidate=>{
+    const c = COLORS[candidate.setKey]?.[candidate.soulIndex];
+    return c && (!!c.isWhite === !!item.isWhite) &&
+      (item.hue === undefined || c.hue === item.hue);
+  });
+  if(!match) match = candidates[0];
+  if(!match) return item;
+
+  const colorData = COLORS[match.setKey][match.soulIndex];
+  return {
+    ...item,
+    setKey:match.setKey,
+    soulIndex:match.soulIndex,
+    hue:item.hue !== undefined ? item.hue : colorData.hue,
+    isWhite:item.isWhite !== undefined ? !!item.isWhite : !!colorData.isWhite
+  };
 }
+
+function loadHistory(){
+  try{
+    const raw = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+    const normalized = Array.isArray(raw) ? raw.map(normalizeHistoryItem) : [];
+
+    // Save the migrated format so the fix survives future visits.
+    if(JSON.stringify(raw) !== JSON.stringify(normalized)){
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(normalized));
+    }
+    return normalized;
+  }catch(e){ return []; }
+}
+
 function saveHistoryEntry(entry){
   try{
     const h = loadHistory();
@@ -623,7 +675,7 @@ function renderHistory(){
       NAMES[item.setKey] && NAMES[item.setKey][state.lang] &&
       NAMES[item.setKey][state.lang][item.soulIndex] !== undefined
         ? NAMES[item.setKey][state.lang][item.soulIndex]
-        : item.name;
+        : (item.name || "");
     const dateStr = new Date(item.date).toLocaleDateString(LOCALE_MAP[state.lang]||"en-US", {day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"});
     txt.innerHTML = `<span style="color:${color}">${translatedName}</span><br><span style="color:var(--dim)">${dateStr}</span>`;
     row.appendChild(txt);
