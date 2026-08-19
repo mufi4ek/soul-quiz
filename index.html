@@ -4,9 +4,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="mufi (mufi4ek)">
+<meta name="author" content="Vlamisdev (mufi4ek)">
+<!-- SEO -->
+<meta name="description" content="Discover which Undertale soul matches your personality with Soul Quiz. Take a fun, fan-made Undertale-inspired personality quiz and find out whether your soul is Determination, Kindness, Bravery, Justice, Patience, Integrity, Perseverance, or another soul trait.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="googlebot" content="index, follow">
+<meta name="theme-color" content="#0b0b14">
+<meta name="application-name" content="Soul Quiz">
+<meta name="apple-mobile-web-app-title" content="Soul Quiz">
+<link rel="canonical" href="https://soulqu.pages.dev/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://soulqu.pages.dev/">
+<meta property="og:title" content="Which Undertale Soul Are You? | Soul Quiz">
+<meta property="og:description" content="Take the Undertale-inspired Soul Quiz and discover which soul matches your personality. Choose your soul set, answer the questions, and get your result.">
+<meta property="og:site_name" content="Soul Quiz">
+<meta property="og:locale" content="en_US">
+
+<!-- X / Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Which Undertale Soul Are You? | Soul Quiz">
+<meta name="twitter:description" content="Discover your Undertale-inspired soul with this fun personality quiz.">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Soul Quiz",
+  "url": "https://soulqu.pages.dev/",
+  "description": "A free, fan-made Undertale-inspired personality quiz that helps you discover which soul matches your personality.",
+  "applicationCategory": "EntertainmentApplication",
+  "operatingSystem": "All",
+  "isAccessibleForFree": true,
+  "inLanguage": ["uk", "ru", "en", "de", "be", "pl", "es"],
+  "author": {
+    "@type": "Person",
+    "name": "Vlamisdev",
+    "email": "vlamisdev@gmail.com"
+  }
+}
+</script>
+
 <!-- site by mufi (mufi4ek) -->
-<title>ЯКА ТИ ДУША?</title>
+<title>Which Undertale Soul Are You? | Soul Quiz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
@@ -342,6 +384,47 @@
     .question-text{font-size:10px;}
     .heart-grid{--px:12px;}
   }
+
+  .seo-intro{
+    width:100%;
+    color:var(--dim);
+    font-family:Arial, sans-serif;
+    font-size:12px;
+    line-height:1.65;
+    text-align:center;
+    max-width:500px;
+    margin-top:-4px;
+  }
+  .seo-intro strong{color:var(--ink);}
+
+  .site-footer{
+    width:100%;
+    margin-top:26px;
+    padding:16px 0 8px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-top:1px solid rgba(255,255,255,.08);
+  }
+  .site-views{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    color:var(--dim);
+    font-family:Arial, sans-serif;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    text-align:center;
+  }
+  .site-views strong{
+    color:var(--ink);
+    font-variant-numeric:tabular-nums;
+    letter-spacing:.04em;
+  }
+  .site-views .views-icon{
+    opacity:.75;
+  }
 </style>
 </head>
 <body>
@@ -355,8 +438,9 @@
 <div class="wrap">
   <div class="lang-row" id="langRow"></div>
 
-  <h1 id="titleText">ЯКА ТИ ДУША?</h1>
-  <div class="subtitle" id="subtitleText">тест у стилі undertale</div>
+  <h1 id="titleText">WHICH UNDERTALE SOUL ARE YOU?</h1>
+  <div class="subtitle" id="subtitleText">Discover which soul matches your personality with this Undertale-inspired quiz.</div>
+  <div class="seo-intro" id="seoIntro"><strong>Find your Undertale soul</strong> by answering a short personality quiz and discover which soul trait fits you best. Free, fan-made, multilingual, and created as an original personal project.</div>
 
   <div class="pixel-frame hidden" id="frameResume">
     <div class="pixel-panel" id="screenResume" style="text-align:center;">
@@ -798,6 +882,9 @@ function applyStaticText(){
   const t = UI[state.lang];
   document.getElementById("titleText").textContent = t.title;
   document.getElementById("subtitleText").textContent = t.subtitle;
+  if(typeof updateViewsLabel === "function") updateViewsLabel();
+  const seoIntro = document.getElementById("seoIntro");
+  if(seoIntro) seoIntro.innerHTML = (state.lang==="en") ? "<strong>Find your Undertale soul</strong> by answering a short personality quiz and discover which soul trait fits you best. Free, fan-made, multilingual, and created as an original personal project." : (state.lang==="ru") ? "<strong>Узнай свою душу из Undertale</strong> с помощью небольшого теста личности и узнай, какая черта души подходит тебе больше всего." : (state.lang==="uk") ? "<strong>Дізнайся свою душу з Undertale</strong> за допомогою невеликого тесту особистості та дізнайся, яка риса душі тобі найбільше підходить." : (state.lang==="de") ? "<strong>Finde deine Undertale-Seele</strong> mit einem kurzen Persönlichkeitstest und entdecke, welche Seeleneigenschaft am besten zu dir passt." : (state.lang==="be") ? "<strong>Даведайся сваю душу з Undertale</strong> з дапамогай невялікага тэсту асобы і даведайся, якая рыса душы табе найбольш падыходзіць." : (state.lang==="pl") ? "<strong>Odkryj swoją duszę z Undertale</strong> dzięki krótkiemu quizowi osobowości i sprawdź, która cecha duszy najlepiej do Ciebie pasuje." : "<strong>Descubre tu alma de Undertale</strong> con un breve test de personalidad y averigua qué rasgo del alma encaja mejor contigo." ;
   document.getElementById("step1Text").textContent = t.step1;
   document.getElementById("step2Text").textContent = t.step2;
   document.getElementById("startBtn").textContent = t.startBtn;
@@ -1011,5 +1098,69 @@ if(savedOnLoad && (savedOnLoad.screen === "quiz" || savedOnLoad.screen === "resu
 
 console.log("made by mufi (mufi4ek)");
 </script>
+
+<footer class="site-footer" aria-label="Website statistics">
+  <div class="site-views">
+    <span class="views-icon" aria-hidden="true">◉</span>
+    <span id="siteViewsLabel">SITE VIEWS</span>
+    <strong id="siteViewsCount">...</strong>
+  </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js" async></script>
+<script>
+(function(){
+  const labels = {
+    uk: "ПЕРЕГЛЯДІВ САЙТУ",
+    ru: "ПРОСМОТРОВ САЙТА",
+    en: "SITE VIEWS",
+    de: "SEITENAUFRUFE",
+    be: "ПРАГЛЯДАЎ САЙТА",
+    pl: "WYŚWIETLEŃ",
+    es: "VISITAS DEL SITIO"
+  };
+
+  function updateViewsLabel(){
+    const lang = (window.state && state.lang) || localStorage.getItem("soulQuizLang") || "en";
+    const el = document.getElementById("siteViewsLabel");
+    if(el) el.textContent = labels[lang] || labels.en;
+  }
+
+  function startSiteCounter(){
+    updateViewsLabel();
+
+    if(typeof Counter === "undefined"){
+      setTimeout(startSiteCounter, 150);
+      return;
+    }
+
+    try{
+      // Public V1 counter: no account or API key required.
+      const counter = new Counter({
+        version: "v1",
+        namespace: "soul-quiz",
+        timeout: 5000
+      });
+
+      counter.up("site-views")
+        .then(function(result){
+          const el = document.getElementById("siteViewsCount");
+          if(el) el.textContent = Number(result.value).toLocaleString();
+        })
+        .catch(function(error){
+          console.error("Site view counter error:", error);
+          const el = document.getElementById("siteViewsCount");
+          if(el) el.textContent = "—";
+        });
+    }catch(error){
+      console.error("Site view counter error:", error);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", startSiteCounter);
+})();
+</script>
+
 </body>
 </html>
