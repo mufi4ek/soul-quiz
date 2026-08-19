@@ -6,7 +6,7 @@ The project includes a multilingual interface, interactive questions, personaliz
 
 ## Copyright & Usage
 
-© 2026 Vlamisdev. All rights reserved.
+© 2026 mufi4ek. All rights reserved.
 
 This project is an original work created and owned by Vlamisdev.
 
