@@ -27,5 +27,5 @@ Without explicit written permission from the copyright holder, you may not:
 Any unauthorized use, reproduction, distribution, modification, or publication is prohibited.
 
 For permission requests, contact:
-
+ 
 **owner@renai3es.pp.ua | vlamisdev@gmail.com**
