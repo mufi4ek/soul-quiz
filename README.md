@@ -15,7 +15,7 @@ The source code, design, interface, text, graphics, structure, and other origina
 Permission is granted **only to the author/owner (Vlamisdev/mufi4ek)** to use, modify, publish, and distribute this project.
 
 Without explicit written permission from the copyright holder, you may not:
-
+ 
 - copy or redistribute this project;
 - use the source code or substantial parts of it;
 - modify and republish the project;
