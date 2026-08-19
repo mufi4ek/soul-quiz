@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <!-- Author: mufi (mufi4ek) -->
-<html lang="uk">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Vlamisdev (mufi4ek)">
 <!-- SEO -->
-<meta name="description" content="Discover which Undertale soul matches your personality with Soul Quiz. Take a fun, fan-made Undertale-inspired personality quiz and find out whether your soul is Determination, Kindness, Bravery, Justice, Patience, Integrity, Perseverance, or another soul trait.">
+<meta name="description" content="Take the Undertale Soul Quiz and discover which soul matches your personality. Find out whether you are Determination, Bravery, Justice, Kindness, Patience, Integrity, Perseverance, or another soul trait.">
 <meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="google-site-verification" content="jujBpop0pedkEDO7wZGKri8h11cm59RTKM3TGmnEtIQ" />
+<meta name="google-site-verification" content="jujBpop0pedkEDO7wZGKri8h11cm59RTKM3TGmnEtIQ">
 <meta name="googlebot" content="index, follow">
 <meta name="theme-color" content="#0b0b14">
 <meta name="application-name" content="Soul Quiz">
@@ -19,12 +19,23 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://soulqu.pages.dev/">
 <meta property="og:title" content="Which Undertale Soul Are You? | Soul Quiz">
-<meta property="og:description" content="Take the Undertale-inspired Soul Quiz and discover which soul matches your personality. Choose your soul set, answer the questions, and get your result.">
+<meta property="og:description" content="Take the Undertale Soul Quiz and discover which soul matches your personality. Choose your soul set, answer the questions, and get your result.">
+<meta property="og:image" content="https://soulqu.pages.dev/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Which Undertale Soul Are You? — Soul Quiz">
 <meta property="og:site_name" content="Soul Quiz">
 <meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="uk_UA">
+<meta property="og:locale:alternate" content="ru_RU">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="pl_PL">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="be_BY">
 
 <!-- X / Twitter -->
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://soulqu.pages.dev/og-image.png">
 <meta name="twitter:title" content="Which Undertale Soul Are You? | Soul Quiz">
 <meta name="twitter:description" content="Discover your Undertale-inspired soul with this fun personality quiz.">
 
@@ -50,7 +61,10 @@
 
 <!-- site by mufi (mufi4ek) -->
 <title>Which Undertale Soul Are You? | Soul Quiz</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" href="/favicon-32.png" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -425,6 +439,39 @@
   }
   .site-views .views-icon{opacity:.75}
 
+
+  :focus-visible{outline:3px solid var(--gold);outline-offset:3px;}
+  button{min-height:44px;touch-action:manipulation;}
+  .lang-btn{min-height:40px;}
+  .seo-content{
+    width:100%;
+    max-width:520px;
+    color:var(--dim);
+    font-family:Arial,sans-serif;
+    line-height:1.7;
+    font-size:13px;
+    text-align:left;
+    padding:18px 18px 4px;
+  }
+  .seo-content h2{
+    margin:18px 0 8px;
+    color:var(--ink);
+    font-family:'Press Start 2P',monospace;
+    font-size:11px;
+    line-height:1.8;
+    text-align:center;
+  }
+  .seo-content p{margin:8px 0;}
+  .seo-content .soul-list{font-family:Arial,sans-serif;text-align:center;margin:10px 0 0;color:var(--ink);}
+  .noscript-panel{
+    width:100%;max-width:520px;padding:16px 18px;
+    border:2px solid var(--border-soft);background:var(--panel-b);color:var(--ink);
+    line-height:1.6;font-family:Arial,sans-serif;
+  }
+  @media (max-width:380px){
+    .seo-content{font-size:12px;}
+    .seo-content h2{font-size:10px;}
+  }
 </style>
 </head>
 <body>
@@ -435,7 +482,7 @@
 <div class="float-px"></div>
 <div class="watermark">mufi</div>
 
-<div class="wrap">
+<main class="wrap" id="mainContent">
   <div class="lang-row" id="langRow"></div>
 
   <h1 id="titleText">WHICH UNDERTALE SOUL ARE YOU?</h1>
@@ -480,8 +527,8 @@
     <div class="pixel-panel" id="screenResult" style="text-align:center;">
       <div class="group-title" id="resultTitleText" style="justify-content:center;">РЕЗУЛЬТАТ</div>
       <div id="resultHeart"></div>
-      <div class="result-name" id="resultName"></div>
-      <div class="result-caption" id="resultCaption"></div>
+      <div class="result-name" id="resultName" aria-live="polite"></div>
+      <div class="result-caption" id="resultCaption" aria-live="polite"></div>
       <button class="pixel-btn start-btn" id="restartBtn"></button>
     </div>
   </div>
@@ -493,7 +540,20 @@
   </div>
 
   <footer id="footerText">* натхненно кольорами душ із Undertale<br>та користувацькою таблицею рис характеру</footer>
-</div>
+  <div class="copyright-note">© 2026 Vlamisdev · All Rights Reserved</div>
+
+  <section class="seo-content" aria-labelledby="seoHeading">
+    <h2 id="seoHeading">Which Undertale Soul Are You?</h2>
+    <p id="seoDescription">Take the Soul Quiz to discover which Undertale-inspired soul best matches your personality. Choose a soul set, answer the questions, and get your result.</p>
+    <h2 id="seoHowHeading">How the Soul Quiz Works</h2>
+    <p id="seoHowText">Choose the original or extended soul set, select the accuracy level, answer the personality questions, and receive the soul trait with the highest score.</p>
+    <p class="soul-list" id="seoSoulList"><strong>Classic souls:</strong> Determination · Bravery · Justice · Kindness · Patience · Integrity · Perseverance</p>
+  </section>
+</main>
+
+<noscript>
+  <div class="noscript-panel">This Soul Quiz requires JavaScript to run. Please enable JavaScript in your browser and reload the page.</div>
+</noscript>
 
 <script>
 /* ============ i18n data ============ */
@@ -761,7 +821,13 @@ function renderHistory(){
         ? NAMES[item.setKey][state.lang][item.soulIndex]
         : (item.name || "");
     const dateStr = new Date(item.date).toLocaleDateString(LOCALE_MAP[state.lang]||"en-US", {day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"});
-    txt.innerHTML = `<span style="color:${color}">${translatedName}</span><br><span style="color:var(--dim)">${dateStr}</span>`;
+    const nameEl = document.createElement("span");
+    nameEl.style.color = color;
+    nameEl.textContent = translatedName;
+    const dateEl = document.createElement("span");
+    dateEl.style.color = "var(--dim)";
+    dateEl.textContent = dateStr;
+    txt.append(nameEl, document.createElement("br"), dateEl);
     row.appendChild(txt);
     list.appendChild(row);
   });
@@ -880,18 +946,70 @@ function setLang(code){
 
 function applyStaticText(){
   const t = UI[state.lang];
+  const SEO_META_BY_LANG = {
+    en:{title:"Which Undertale Soul Are You? | Soul Quiz",description:"Take the Undertale Soul Quiz and discover which soul matches your personality. Find out whether you are Determination, Bravery, Justice, Kindness, Patience, Integrity, Perseverance, or another soul trait."},
+    ru:{title:"Какая ты душа из Undertale? | Soul Quiz",description:"Пройди Soul Quiz и узнай, какая душа из Undertale лучше всего соответствует твоему характеру: Решимость, Храбрость, Справедливость, Доброта и другие."},
+    uk:{title:"Яка ти душа з Undertale? | Soul Quiz",description:"Пройди Soul Quiz та дізнайся, яка душа з Undertale найкраще відповідає твоєму характеру: Рішучість, Хоробрість, Справедливість, Доброта та інші."},
+    de:{title:"Welche Undertale-Seele bist du? | Soul Quiz",description:"Mache den Soul Quiz und entdecke, welche Undertale-Seele am besten zu deiner Persönlichkeit passt."},
+    be:{title:"Якая ты душа з Undertale? | Soul Quiz",description:"Прайдзі Soul Quiz і даведайся, якая душа з Undertale найбольш адпавядае твайму характару."},
+    pl:{title:"Jaką duszą z Undertale jesteś? | Soul Quiz",description:"Rozwiąż Soul Quiz i sprawdź, która dusza inspirowana Undertale najlepiej pasuje do Twojej osobowości."},
+    es:{title:"¿Qué alma de Undertale eres? | Soul Quiz",description:"Haz el Soul Quiz y descubre qué alma inspirada en Undertale encaja mejor con tu personalidad."}
+  };
+  const seoMeta = SEO_META_BY_LANG[state.lang] || SEO_META_BY_LANG.en;
+  document.title = seoMeta.title;
+  const descriptionMeta = document.querySelector('meta[name="description"]');
+  if(descriptionMeta) descriptionMeta.setAttribute("content", seoMeta.description);
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if(ogTitle) ogTitle.setAttribute("content", seoMeta.title);
+  const ogDescription = document.querySelector('meta[property="og:description"]');
+  if(ogDescription) ogDescription.setAttribute("content", seoMeta.description);
   document.getElementById("titleText").textContent = t.title;
   document.getElementById("subtitleText").textContent = t.subtitle;
   if(window.updateViewsLabel) window.updateViewsLabel();
 
   const seoIntro = document.getElementById("seoIntro");
-  if(seoIntro) seoIntro.innerHTML = (state.lang==="en") ? "<strong>Find your Undertale soul</strong> by answering a short personality quiz and discover which soul trait fits you best. Free, fan-made, multilingual, and created as an original personal project." : (state.lang==="ru") ? "<strong>Узнай свою душу из Undertale</strong> с помощью небольшого теста личности и узнай, какая черта души подходит тебе больше всего." : (state.lang==="uk") ? "<strong>Дізнайся свою душу з Undertale</strong> за допомогою невеликого тесту особистості та дізнайся, яка риса душі тобі найбільше підходить." : (state.lang==="de") ? "<strong>Finde deine Undertale-Seele</strong> mit einem kurzen Persönlichkeitstest und entdecke, welche Seeleneigenschaft am besten zu dir passt." : (state.lang==="be") ? "<strong>Даведайся сваю душу з Undertale</strong> з дапамогай невялікага тэсту асобы і даведайся, якая рыса душы табе найбольш падыходзіць." : (state.lang==="pl") ? "<strong>Odkryj swoją duszę z Undertale</strong> dzięki krótkiemu quizowi osobowości i sprawdź, która cecha duszy najlepiej do Ciebie pasuje." : "<strong>Descubre tu alma de Undertale</strong> con un breve test de personalidad y averigua qué rasgo del alma encaja mejor contigo." ;
+  if(seoIntro){
+    const seoTexts = {
+      en:["Find your Undertale soul"," by answering a short personality quiz and discover which soul trait fits you best. Free, fan-made, multilingual, and created as an original personal project."],
+      ru:["Узнай свою душу из Undertale"," с помощью небольшого теста личности и узнай, какая черта души подходит тебе больше всего."],
+      uk:["Дізнайся свою душу з Undertale"," за допомогою невеликого тесту особистості та дізнайся, яка риса душі тобі найбільше підходить."],
+      de:["Finde deine Undertale-Seele"," mit einem kurzen Persönlichkeitstest und entdecke, welche Seeleneigenschaft am besten zu dir passt."],
+      be:["Даведайся сваю душу з Undertale"," з дапамогай невялікага тэсту асобы і даведайся, якая рыса душы табе найбольш падыходзіць."],
+      pl:["Odkryj swoją duszę z Undertale"," dzięki krótkiemu quizowi osobowości i sprawdź, która cecha duszy najlepiej do Ciebie pasuje."],
+      es:["Descubre tu alma de Undertale"," con un breve test de personalidad y averigua qué rasgo del alma encaja mejor contigo."]
+    };
+    const pair = seoTexts[state.lang] || seoTexts.en;
+    seoIntro.replaceChildren();
+    const strong = document.createElement("strong");
+    strong.textContent = pair[0];
+    seoIntro.append(strong, document.createTextNode(pair[1]));
+  }
   document.getElementById("step1Text").textContent = t.step1;
   document.getElementById("step2Text").textContent = t.step2;
   document.getElementById("startBtn").textContent = t.startBtn;
   document.getElementById("restartBtn").textContent = t.restartBtn;
   document.getElementById("resultTitleText").textContent = t.resultTitle;
   document.getElementById("footerText").innerHTML = t.footer;
+  const seoHeading = document.getElementById("seoHeading");
+  const seoDescription = document.getElementById("seoDescription");
+  const seoHowHeading = document.getElementById("seoHowHeading");
+  const seoHowText = document.getElementById("seoHowText");
+  const seoSoulList = document.getElementById("seoSoulList");
+  const seoCopy = {
+    en:{h:"Which Undertale Soul Are You?",p:"Take the Soul Quiz to discover which Undertale-inspired soul best matches your personality. Choose a soul set, answer the questions, and get your result.",hh:"How the Soul Quiz Works",ht:"Choose the original or extended soul set, select the accuracy level, answer the personality questions, and receive the soul trait with the highest score.",list:"Classic souls: Determination · Bravery · Justice · Kindness · Patience · Integrity · Perseverance"},
+    ru:{h:"Какая ты душа из Undertale?",p:"Пройди Soul Quiz и узнай, какая душа из вдохновлённого Undertale теста лучше всего соответствует твоему характеру.",hh:"Как работает тест",ht:"Выбери набор душ, уровень точности и ответь на вопросы о характере, чтобы получить душу с самым высоким результатом.",list:"Классические души: Решимость · Храбрость · Справедливость · Доброта · Терпение · Честность · Настойчивость"},
+    uk:{h:"Яка ти душа з Undertale?",p:"Пройди Soul Quiz та дізнайся, яка душа з натхненного Undertale тесту найкраще відповідає твоєму характеру.",hh:"Як працює тест",ht:"Обери набір душ, рівень точності та відповідай на запитання про характер, щоб отримати душу з найвищим результатом.",list:"Класичні душі: Рішучість · Хоробрість · Справедливість · Доброта · Терпіння · Чесність · Наполегливість"},
+    de:{h:"Welche Undertale-Seele bist du?",p:"Mache den Soul Quiz und entdecke, welche Undertale-inspirierte Seele am besten zu deiner Persönlichkeit passt.",hh:"So funktioniert der Soul Quiz",ht:"Wähle ein Seelen-Set und die gewünschte Genauigkeit, beantworte die Fragen und erhalte dein Ergebnis.",list:"Klassische Seelen: Entschlossenheit · Tapferkeit · Gerechtigkeit · Freundlichkeit · Geduld · Aufrichtigkeit · Beharrlichkeit"},
+    be:{h:"Якая ты душа з Undertale?",p:"Прайдзі Soul Quiz і даведайся, якая душа з тэсту, натхнёнага Undertale, найбольш адпавядае твайму характару.",hh:"Як працуе тэст",ht:"Абяры набор душ і дакладнасць, адкажы на пытанні і атрымай душу з найвышэйшым вынікам.",list:"Класічныя душы: Рашучасць · Смеласць · Справядлівасць · Дабрыня · Цярпенне · Сумленнасць · Настойлівасць"},
+    pl:{h:"Jaką duszą z Undertale jesteś?",p:"Rozwiąż Soul Quiz i sprawdź, która dusza inspirowana Undertale najlepiej pasuje do Twojej osobowości.",hh:"Jak działa quiz",ht:"Wybierz zestaw dusz i dokładność, odpowiedz na pytania i poznaj duszę z najwyższym wynikiem.",list:"Klasyczne dusze: Determinacja · Odwaga · Sprawiedliwość · Dobroć · Cierpliwość · Uczciwość · Wytrwałość"},
+    es:{h:"¿Qué alma de Undertale eres?",p:"Haz el Soul Quiz y descubre qué alma inspirada en Undertale encaja mejor con tu personalidad.",hh:"Cómo funciona el quiz",ht:"Elige un conjunto de almas y la precisión, responde a las preguntas y descubre el alma con la puntuación más alta.",list:"Almas clásicas: Determinación · Valentía · Justicia · Bondad · Paciencia · Integridad · Perseverancia"}
+  };
+  const sc = seoCopy[state.lang] || seoCopy.en;
+  if(seoHeading) seoHeading.textContent = sc.h;
+  if(seoDescription) seoDescription.textContent = sc.p;
+  if(seoHowHeading) seoHowHeading.textContent = sc.hh;
+  if(seoHowText) seoHowText.textContent = sc.ht;
+  if(seoSoulList) seoSoulList.textContent = sc.list;
   document.getElementById("resumeTitleText").textContent = t.resumeTitle;
   document.getElementById("resumeCaptionText").textContent = t.resumeCaption;
   document.getElementById("resumeContinueBtn").textContent = t.resumeContinueBtn;
@@ -1108,124 +1226,45 @@ console.log("made by mufi (mufi4ek)");
     <strong id="siteViewsCount">—</strong>
   </div>
 </footer>
-
-
 <script>
-(function () {
-  const LABELS = {
-    uk: "ПЕРЕГЛЯДІВ САЙТУ",
-    ru: "ПРОСМОТРОВ САЙТА",
-    en: "SITE VIEWS",
-    de: "SEITENAUFRUFE",
-    be: "ПРАГЛЯДАЎ САЙТА",
-    pl: "WYŚWIETLEŃ",
-    es: "VISITAS DEL SITIO"
-  };
+(function(){
+  const LABELS = {uk:"ПЕРЕГЛЯДІВ САЙТУ",ru:"ПРОСМОТРОВ САЙТА",en:"SITE VIEWS",de:"SEITENAUFRUFE",be:"ПРАГЛЯДАЎ САЙТА",pl:"WYŚWIETLEŃ",es:"VISITAS DEL SITIO"};
+  const countEl = document.getElementById("siteViewsCount");
+  const labelEl = document.getElementById("siteViewsLabel");
 
-  const VIEWED_KEY = "soulQuizView24h";
-  const COUNTER_URL = "https://api.counterapi.dev/v1/soul-quiz/site-views/up";
-  const DAY = 24 * 60 * 60 * 1000;
-
-  function getCurrentLanguage() {
-    return (window.state && state.lang)
-      || localStorage.getItem("soulQuizLang")
-      || document.documentElement.lang
-      || "en";
+  function updateViewsLabel(){
+    const lang = (window.state && window.state.lang) || document.documentElement.lang || "en";
+    if(labelEl) labelEl.textContent = LABELS[lang] || LABELS.en;
   }
 
-  function updateViewsLabel() {
-    const label = document.getElementById("siteViewsLabel");
-    if (label) {
-      label.textContent = LABELS[getCurrentLanguage()] || LABELS.en;
-    }
-  }
-
-  function hasRecentView() {
-    const saved = Number(localStorage.getItem(VIEWED_KEY));
-    return Number.isFinite(saved) && saved > 0 && (Date.now() - saved) < DAY;
-  }
-
-  function markViewLocally() {
-    localStorage.setItem(VIEWED_KEY, String(Date.now()));
-  }
-
-  async function updateCounter() {
-    const count = document.getElementById("siteViewsCount");
-    if (!count) return;
-
-    try {
-      const response = await fetch(COUNTER_URL, {
-        method: "GET",
-        cache: "no-store"
-      });
-
-      if (!response.ok) {
-        throw new Error("Counter HTTP " + response.status);
-      }
-
-      const data = await response.json();
-      const value = Number(data.value ?? data.count);
-
-      if (!Number.isFinite(value)) {
-        throw new Error("Invalid counter response");
-      }
-
-      count.textContent = value.toLocaleString();
-    } catch (error) {
-      console.error("Soul Quiz view counter:", error);
-      count.textContent = "—";
-    }
-  }
-
-  async function initViewCounter() {
+  async function loadViews(attempt=0){
     updateViewsLabel();
-
-    /*
-      Count at most once per device/browser every 24 hours.
-      F5 and reopening the page during this period do not add another view.
-    */
-    if (!hasRecentView()) {
-      markViewLocally();
-      await updateCounter();
-    } else {
-      /*
-        We still read the current total, but do NOT increment it.
-        This keeps the number displayed up to date without counting
-        the same device again during its 24-hour window.
-      */
-      const count = document.getElementById("siteViewsCount");
-      if (count) {
-        try {
-          const response = await fetch(
-            "https://api.counterapi.dev/v1/soul-quiz/site-views",
-            { method: "GET", cache: "no-store" }
-          );
-
-          if (!response.ok) throw new Error("Counter HTTP " + response.status);
-
-          const data = await response.json();
-          const value = Number(data.value ?? data.count);
-
-          if (!Number.isFinite(value)) throw new Error("Invalid counter response");
-
-          count.textContent = value.toLocaleString();
-        } catch (error) {
-          console.error("Soul Quiz view counter read:", error);
-          count.textContent = "—";
-        }
+    try{
+      const response = await fetch("/api/views", {
+        method:"GET",
+        credentials:"same-origin",
+        cache:"no-store",
+        headers:{Accept:"application/json"}
+      });
+      if(!response.ok) throw new Error("views API HTTP " + response.status);
+      const data = await response.json();
+      const value = Number(data.views);
+      if(!Number.isFinite(value)) throw new Error("Invalid views payload");
+      if(countEl) countEl.textContent = value.toLocaleString();
+    }catch(error){
+      console.error("Soul Quiz views API:", error);
+      if(attempt < 3){
+        setTimeout(()=>loadViews(attempt+1), [500,1500,3500][attempt]);
+      }else if(countEl){
+        countEl.textContent = "—";
       }
     }
   }
 
   window.updateViewsLabel = updateViewsLabel;
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initViewCounter);
-  } else {
-    initViewCounter();
-  }
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", ()=>loadViews());
+  else loadViews();
 })();
 </script>
-
 </body>
 </html>
