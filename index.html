@@ -535,8 +535,26 @@ function soulColor(c){ return c.isWhite ? "#f4f1ff" : `hsl(${c.hue}, 72%, 58%)`;
 const HEART_MAP = ["0110110","1111111","1111111","0111110","0011100","0001000"];
 
 /* ============ state ============ */
+const LANGUAGE_KEY = "soulQuizLanguage_v1";
+
+function getInitialLanguage(){
+  try{
+    const saved = localStorage.getItem(LANGUAGE_KEY);
+    if(saved && LANGS.some(l=>l.code===saved)) return saved;
+  }catch(e){}
+
+  const browserLanguages = Array.isArray(navigator.languages) && navigator.languages.length
+    ? navigator.languages
+    : [navigator.language || ""];
+  for(const value of browserLanguages){
+    const code = String(value).toLowerCase().split("-")[0];
+    if(LANGS.some(l=>l.code===code)) return code;
+  }
+  return "uk";
+}
+
 let state = {
-  lang:"uk",
+  lang:getInitialLanguage(),
   setKey:null,
   accKey:null,
   perSoulByAcc:{fast:1, medium:2, max:3},
@@ -601,8 +619,13 @@ function renderHistory(){
     row.appendChild(heartWrap);
     const txt = document.createElement("div");
     txt.className = "history-text";
+    const translatedName = item.setKey && Number.isInteger(item.soulIndex) &&
+      NAMES[item.setKey] && NAMES[item.setKey][state.lang] &&
+      NAMES[item.setKey][state.lang][item.soulIndex] !== undefined
+        ? NAMES[item.setKey][state.lang][item.soulIndex]
+        : item.name;
     const dateStr = new Date(item.date).toLocaleDateString(LOCALE_MAP[state.lang]||"en-US", {day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"});
-    txt.innerHTML = `<span style="color:${color}">${item.name}</span><br><span style="color:var(--dim)">${dateStr}</span>`;
+    txt.innerHTML = `<span style="color:${color}">${translatedName}</span><br><span style="color:var(--dim)">${dateStr}</span>`;
     row.appendChild(txt);
     list.appendChild(row);
   });
@@ -702,7 +725,10 @@ LANGS.forEach(l=>{
 });
 
 function setLang(code){
+  if(!LANGS.some(l=>l.code===code)) code = "uk";
   state.lang = code;
+  document.documentElement.lang = code;
+  try{ localStorage.setItem(LANGUAGE_KEY, code); }catch(e){}
   [...langRow.children].forEach(b=>b.classList.toggle("active", b.dataset.code===code));
   applyStaticText();
   renderSetupOptions();
@@ -786,7 +812,6 @@ document.getElementById("resumeRestartBtn").addEventListener("click", ()=>{
 document.getElementById("resumeContinueBtn").addEventListener("click", ()=>{
   const saved = loadProgress();
   if(!saved){ showOnly("frameSetup"); return; }
-  state.lang = LANGS.some(l=>l.code===saved.lang) ? saved.lang : state.lang;
   setLang(state.lang);
   state.setKey = saved.setKey;
   state.accKey = saved.accKey;
@@ -885,7 +910,14 @@ function showResult(){
 
   const names = NAMES[state.setKey][state.lang];
   const c = COLORS[state.setKey][state.winnerIndex];
-  saveHistoryEntry({ name:names[state.winnerIndex], hue:c.hue, isWhite:!!c.isWhite, date:new Date().toISOString() });
+  saveHistoryEntry({
+    name:names[state.winnerIndex],
+    setKey:state.setKey,
+    soulIndex:state.winnerIndex,
+    hue:c.hue,
+    isWhite:!!c.isWhite,
+    date:new Date().toISOString()
+  });
   renderHistory();
 
   renderResultText();
@@ -911,6 +943,7 @@ document.getElementById("historyClearBtn").addEventListener("click", ()=>{
 });
 
 /* ============ init ============ */
+setLang(state.lang);
 applyStaticText();
 renderSetupOptions();
 renderHistory();
@@ -919,7 +952,6 @@ const savedOnLoad = loadProgress();
 if(savedOnLoad && (savedOnLoad.screen === "quiz" || savedOnLoad.screen === "result") &&
    ((savedOnLoad.screen === "quiz" && savedOnLoad.questions && savedOnLoad.questions.length) ||
     (savedOnLoad.screen === "result" && savedOnLoad.winnerIndex !== null))){
-  if(LANGS.some(l=>l.code===savedOnLoad.lang)) setLang(savedOnLoad.lang);
   showOnly("frameResume");
 } else {
   showOnly("frameSetup");
